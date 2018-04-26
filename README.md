@@ -14,7 +14,8 @@ slash-ml requires:
 - Python (>= 3.4)
 - NumPy (>= 1.14.2)
 - nltk (>= 3.2.4) [https://www.nltk.org/data.html]
-    => then install stopwords 
+    => then install stopwords
+    
 
 User installation
 ~~~~~~~~~~~~~~~~~
