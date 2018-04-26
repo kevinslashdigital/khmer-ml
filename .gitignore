@@ -1,0 +1,5 @@
+build
+files.txt
+log_file.txt
+preprocessing/__pycache__ utils/__pycache__
+naive_bayes/.DS_Store
