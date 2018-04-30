@@ -3,3 +3,8 @@ files.txt
 log_file.txt
 preprocessing/__pycache__ utils/__pycache__
 naive_bayes/.DS_Store
+slashml/build/
+**/__pycache__/
+**/__pycache__
+**/__pycache__
+slashml/preprocessing/__pycache__ slashml/utils/__pycache__
