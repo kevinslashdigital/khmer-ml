@@ -91,22 +91,27 @@ class FileUtil(object):
 
         #s_model = {'hello': 'world'}
         path_to_pickle = os.path.join(config['root'], config['train_model'])
-        with open(path_to_pickle, 'wb') as handle:
-            pickle.dump(model, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-        return True
+        try:
+            with open(path_to_pickle, 'wb') as handle:
+                pickle.dump(model, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        except pickle.PickleError as error:
+            raise Exception(error)
+        else:
+            return True
 
     @staticmethod
     def load_model(config):
         """ Read .pickle file
-
         """
 
         path_to_pickle = os.path.join(config['root'], config['train_model'])
-        with open(path_to_pickle, 'rb') as handle:
-            model = pickle.load(handle)
-
-        return model
+        try:
+            with open(path_to_pickle, 'rb') as handle:
+                model = pickle.load(handle)
+        except pickle.UnpicklingError as error:
+            raise Exception(error)
+        else:
+            return model
 
     @staticmethod
     def extract_zipfile(path_to_zipefile, dest_path):
@@ -115,12 +120,13 @@ class FileUtil(object):
         """
 
         try:
-            opened_rar = zipfile.ZipFile(path_to_zipefile)
-            opened_rar.extractall(dest_path)
-        except OSError as err:
-            return False, err
-
-        return True
+            with zipfile.ZipFile(path_to_zipefile) as opened_rar:
+                opened_rar.extractall(dest_path)
+            #opened_rar = zipfile.ZipFile(path_to_zipefile)
+        except OSError as error:
+            raise Exception(error)
+        else:
+            return True
 
     @staticmethod
     def move_file(source, destination):

@@ -25,13 +25,16 @@ class NaiveBayesTemplate(Base):
         pass
 
     def load_model(self):
-        _train_model = FileUtil.load_model(self.kwargs)
-        self.train_model = _train_model
+        """ Load train model from file
+        """
 
-        self.naive_bayes.train_model = self.train_model
-
-        return True
-
+        try:
+            self.train_model = FileUtil.load_model(self.kwargs)
+            self.naive_bayes.train_model = self.train_model
+        except IOError as error:
+            raise Exception(error)
+        else:
+            return True
 
     def split_dataset_by_ratio(self, dataset, split_ratio):
         """ Split data set for training and testing
@@ -45,7 +48,6 @@ class NaiveBayesTemplate(Base):
             train_set.append(copy.pop(index))
 
         return [train_set, copy]
-
 
 
     def split_dataset(self, dataset, sample_by_class):
@@ -92,7 +94,10 @@ class NaiveBayesTemplate(Base):
         self.train_model = self.naive_bayes.train_model
 
         # Save model in temporary file
-        _ = FileUtil.save_model(self.kwargs, self.train_model)
+        try:
+            FileUtil.save_model(self.kwargs, self.train_model)
+        except IOError as error:
+            print(error)
 
         return self.train_model
 
@@ -144,6 +149,12 @@ class NaiveBayesTemplate(Base):
         print("Accuracy list: ", accuracy_list)
         print("Average Accuracy", round(sum(accuracy_list)/test_counter, 2))
         print("Mode of accuracy is : ", mode)
+
+    def accuracy(self, test_set):
+        """ Get Accuracy
+        """
+
+        return self.naive_bayes.accuracy(test_set)
 
 if __name__ == "__main__":
 
