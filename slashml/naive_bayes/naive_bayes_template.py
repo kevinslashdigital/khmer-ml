@@ -3,6 +3,7 @@
 
 """
 import random
+import copy
 
 from slashml.naive_bayes.naive_bayes import NaiveBayes
 from slashml.utils.file_util import FileUtil
@@ -68,7 +69,28 @@ class NaiveBayesTemplate(Base):
                 no_train_set = no_train_set + 1
 
         return [dataset_by_class, test_set]
-        #return dataset_by_class, test_set
+
+
+    def extract_testingdata_dataset(self, dataset, sample_by_class):
+        """ Extract subset from big training set
+        The subset is used for testing on training model
+        """
+
+        dataset_by_class = self.classify_dataset_by_class(dataset)
+
+        test_set = []
+        no_train_set = 0
+
+        for _, label in enumerate(dataset_by_class):
+            no_train_set = 0
+            subset = dataset_by_class[label]
+            while no_train_set < sample_by_class:
+                index_subset = random.randrange(len(subset))
+                _vector = copy.deepcopy(dataset_by_class[label][index_subset])
+                test_set.append(_vector)
+                no_train_set = no_train_set + 1
+
+        return [dataset_by_class, test_set]
 
 
     def classify_dataset_by_class(self, dataset):
