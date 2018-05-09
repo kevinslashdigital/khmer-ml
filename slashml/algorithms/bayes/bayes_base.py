@@ -4,7 +4,7 @@
 import math
 from decimal import Decimal
 
-class NaiveBayes(object):
+class BayesBase(object):
     """
         Naive Bayes class
     """
@@ -205,12 +205,3 @@ class NaiveBayes(object):
     @train_model.setter
     def train_model(self, value):
         self._train_model = value
-
-
-""" if __name__ == "__main__":
-    config = {
-        'dataset': 'db.khmer.json',
-        'model'	 : 'data/naive_bayes_khmer_model.pickle',
-        'mode'	 : 'unicode'}
-
-    naive_bayes = NaiveBayes(**config) """

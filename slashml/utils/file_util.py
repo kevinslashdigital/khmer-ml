@@ -47,7 +47,7 @@ class FileUtil(object):
         """ path to file
         """
 
-        path = os.path.join(config['root'], config['model_dataset'], filename)
+        path = os.path.join(config['root'], config['dataset'], filename)
 
         return path
 

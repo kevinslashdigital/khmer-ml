@@ -9,13 +9,16 @@ class Base(ABC):
     """
 
     def __init__(self, **kwargs):
-        """ take args
-        """
-
         self.kwargs = kwargs
 
     @abstractmethod
-    def load_dataset(self):
+    def load_model(self):
+        """ load dataset extraction
+        """
+        pass
+
+    @abstractmethod
+    def save_model(self):
         """ load dataset extraction
         """
         pass
@@ -27,13 +30,8 @@ class Base(ABC):
         pass
 
     @abstractmethod
-    def load_model(self):
-        """ load dataset extraction
-        """
-        pass
-
-    @abstractmethod
     def predict(self, test_dataset):
         """ load dataset extraction
         """
         pass
+

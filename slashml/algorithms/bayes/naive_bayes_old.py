@@ -2,25 +2,24 @@
     Factory class
 
 """
-import random
 import copy
 
-from slashml.naive_bayes.naive_bayes import NaiveBayes
+from slashml.algorithms.bayes.bayes_base import BayesBase
 from slashml.utils.file_util import FileUtil
-from slashml.naive_bayes.base import Base
+from slashml.algorithms.base import Base
 
 
-class NaiveBayesTemplate(Base):
+class NaiveBayes(Base):
     """
         Naive Bayes class
     """
 
     def __init__(self, **kwargs):
-        super(NaiveBayesTemplate, self).__init__(**kwargs)
-
+        # super(NaiveBayes, self).__init__(**kwargs)
+        self.kwargs = kwargs
         self.train_model = {}
         self.predictions = []
-        self.naive_bayes = NaiveBayes(**kwargs)
+        self.naive_bayes = BayesBase(**kwargs)
 
     def load_dataset(self):
         pass
@@ -51,24 +50,24 @@ class NaiveBayesTemplate(Base):
         return [train_set, copy]
 
 
-    def split_dataset(self, dataset, sample_by_class):
-        """ Split data set for training and testing
-        """
+    # def split_dataset(self, dataset, sample_by_class):
+    #     """ Split data set for training and testing
+    #     """
 
-        dataset_by_class = self.classify_dataset_by_class(dataset)
+    #     dataset_by_class = self.classify_dataset_by_class(dataset)
 
-        test_set = []
-        no_train_set = 0
+    #     test_set = []
+    #     no_train_set = 0
 
-        for _, label in enumerate(dataset_by_class):
-            no_train_set = 0
-            subset = dataset_by_class[label]
-            while no_train_set < sample_by_class:
-                index_subset = random.randrange(len(subset))
-                test_set.append(dataset_by_class[label].pop(index_subset))
-                no_train_set = no_train_set + 1
+    #     for _, label in enumerate(dataset_by_class):
+    #         no_train_set = 0
+    #         subset = dataset_by_class[label]
+    #         while no_train_set < sample_by_class:
+    #             index_subset = random.randrange(len(subset))
+    #             test_set.append(dataset_by_class[label].pop(index_subset))
+    #             no_train_set = no_train_set + 1
 
-        return [dataset_by_class, test_set]
+    #     return [dataset_by_class, test_set]
 
 
     def extract_testingdata_dataset(self, dataset, sample_by_class):
@@ -93,19 +92,19 @@ class NaiveBayesTemplate(Base):
         return [dataset_by_class, test_set]
 
 
-    def classify_dataset_by_class(self, dataset):
-        """ Classify dataset by class
-        """
+    # def classify_dataset_by_class(self, dataset):
+    #     """ Classify dataset by class
+    #     """
 
-        dataset_by_class = {}
-        for _, subset in enumerate(dataset):
-            vector = subset
-            if vector[-1] not in dataset_by_class:
-                dataset_by_class[vector[-1]] = []
+    #     dataset_by_class = {}
+    #     for _, subset in enumerate(dataset):
+    #         vector = subset
+    #         if vector[-1] not in dataset_by_class:
+    #             dataset_by_class[vector[-1]] = []
 
-            dataset_by_class[vector[-1]].append(vector)
+    #         dataset_by_class[vector[-1]].append(vector)
 
-        return dataset_by_class
+    #     return dataset_by_class
 
     def train(self, dataset):
         """ Train model
@@ -177,20 +176,3 @@ class NaiveBayesTemplate(Base):
         """
 
         return self.naive_bayes.accuracy(test_set)
-
-if __name__ == "__main__":
-
-    CONFIG = {
-        'root': '/Users/lion/Documents/py-workspare/slash-ml',
-        'model_dataset': 'data/dataset',
-        'train_model': 'data/naive_bayes_model.pickle',
-        'train_dataset': 'data/train_dataset.pickle',
-        'test_dataset': 'data/test_dataset.pickle',
-        'text_dir': 'data/dataset/text',
-        'archive_dir': 'data/dataset/temp',
-        'dataset': 'data/dataset/matrix',
-        'mode': 'unicode'
-    }
-
-    naive_bayes_template = NaiveBayesTemplate(**CONFIG)
-    naive_bayes_template.test_naive_bayes_template()
