@@ -30,12 +30,14 @@ if __name__ == "__main__":
 
     # dataset -> train, test
     training_set, test_set = ml.split_dataset(dataset_sample, 2)
-
-    print('training_set', len(training_set))
-
+    # choose your algorithm
     algo = ml.NiaveBayes()
-    model = algo.train(training_set)
+    # train or load model
+    # model = algo.train(training_set)
+    model = algo.load_model()
+    # make a prediction
     predictions = algo.predict(model, test_set)
     acc = ml.accuracy(predictions,test_set)
-
+ 
+    print('training_set', len(training_set))
     print('predictions, prediction_details', predictions, acc)

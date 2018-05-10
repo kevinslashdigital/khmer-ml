@@ -29,8 +29,8 @@ class NaiveBayes(Base):
             self.train_model = FileUtil.load_model(self.kwargs)
         except IOError as error:
             raise Exception(error)
-        else:
-            return True
+        
+        return self.train_model
 
     def save_model(self, model):
         """ Load train model from file
