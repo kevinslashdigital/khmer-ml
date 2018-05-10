@@ -10,26 +10,9 @@ class BayesBase(object):
     """
 
     def __init__(self, **kwargs):
-
         self.kwargs = kwargs
-
         self._train_model = {}
         self.predictions = []
-
-    def classify_dataset_by_class(self, dataset):
-        """ Classify dataset by class
-        """
-
-        dataset_by_class = {}
-        for _, subset in enumerate(dataset):
-            vector = subset
-            if vector[-1] not in dataset_by_class:
-                dataset_by_class[vector[-1]] = []
-
-            dataset_by_class[vector[-1]].append(vector)
-
-        return dataset_by_class
-
 
     def count_classes_occurrence(self, dataset):
         """ Count class occurences from list data set
@@ -72,7 +55,6 @@ class BayesBase(object):
         """
 
         # zip feature by class
-        #dataset_by_class = cls.classify_dataset_by_class(dataset)
         dataset_by_class = dict(dataset)
 
         likelihoods = {}
@@ -95,31 +77,6 @@ class BayesBase(object):
             likelihoods[class_key] = probabilities
 
         return likelihoods
-
-
-    def train(self, dataset):
-        """ Train model
-        """
-
-        # Calculate class priori
-        # Calculate likelihood of every feature per class
-        prioris = self.calculate_priori(dataset)
-        likelihoods = self.calculate_likelihood(dataset)
-
-        train_model = {}
-        for class_key, likelihood in likelihoods.items():
-            priori = prioris[class_key]
-
-            if class_key not in train_model:
-                train_model[class_key] = []
-
-            train_model[class_key].append(priori)
-            train_model[class_key].append(likelihood)
-
-        self.train_model = train_model
-
-        return self
-
 
     def calculate_posteriori(self, train_model, test_vector):
         """ Calculate the porbability of all classes
@@ -145,63 +102,23 @@ class BayesBase(object):
 
         return best_posteriori, label
 
-    @classmethod
-    def get_prediction_by_class(cls, predictions):
-        """ get max prob per class
-        """
+    # @classmethod
+    # def get_prediction_by_class(cls, predictions):
+    #     """ get max prob per class
+    #     """
 
-        results = {}
-        for class_key, probabilities in predictions.items():
-            results[class_key] = max(probabilities)
+    #     results = {}
+    #     for class_key, probabilities in predictions.items():
+    #         results[class_key] = max(probabilities)
 
-        return results
+    #     return results
+    # @property
+    # def train_model(self):
+    #     """
+    #         I'm the 'train_model' property.
+    #     """
+    #     return self._train_model
 
-
-    def predict(self, test_dataset):
-        """ Make prediction
-        """
-
-        predictions = []
-        prediction_details = {}
-
-        import copy
-        test_sample = copy.deepcopy(test_dataset)
-
-        for subset in test_sample:
-            # remove label from test dataset
-            del subset[-1]
-            _, label = self.calculate_posteriori(self.train_model, subset)
-            ''' if best_label is None or posteriori > best_prob:
-                best_prob = posteriori
-                best_label = label'''
-            ''' if label not in predictions:
-                predictions[label] = [] '''
-
-            predictions.append(label)
-
-        self.predictions = predictions
-
-        return predictions, prediction_details
-
-
-    def accuracy(self, test_set):
-        """ Get Accuracy
-        """
-
-        correct = 0
-        for index, _ in enumerate(test_set):
-            if test_set[index][-1] == self.predictions[index]:
-                correct += 1
-
-        return round((correct / float(len(test_set))) * 100.0, 2)
-
-    @property
-    def train_model(self):
-        """
-            I'm the 'train_model' property.
-        """
-        return self._train_model
-
-    @train_model.setter
-    def train_model(self, value):
-        self._train_model = value
+    # @train_model.setter
+    # def train_model(self, value):
+    #     self._train_model = value

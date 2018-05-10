@@ -11,10 +11,10 @@ from slashml.utils.file_util import FileUtil
 if __name__ == "__main__":
 
     config = {
-        'root': '/Projects/slashml/slash-ml',
+        'root': '/Data/Projects/ML/slashml/slash-ml',
         'text_dir': 'data/dataset/text',
         'dataset': 'data/dataset/matrix',
-        'train_model': 'data/naive_bayes_model.pickle',
+        'train_model': 'data/naive_bayes.model',
         # 'mode': 'unicode'
     }
     # preposessing
@@ -31,8 +31,11 @@ if __name__ == "__main__":
     # dataset -> train, test
     training_set, test_set = ml.split_dataset(dataset_sample, 2)
 
-    print('training_set', training_set)
+    print('training_set', len(training_set))
 
     algo = ml.NiaveBayes()
     model = algo.train(training_set)
-    acc = algo.predict(test_set)
+    predictions = algo.predict(model, test_set)
+    acc = ml.accuracy(predictions,test_set)
+
+    print('predictions, prediction_details', predictions, acc)

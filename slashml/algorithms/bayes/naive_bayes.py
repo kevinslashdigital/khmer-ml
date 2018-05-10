@@ -19,7 +19,7 @@ class NaiveBayes(Base):
         self.kwargs = kwargs
         self.train_model = {}
         self.predictions = []
-        self.naive_bayes = BayesBase(**kwargs)
+        self.bayes_base = BayesBase(**kwargs)
 
     def load_model(self):
         """ Load train model from file
@@ -27,46 +27,65 @@ class NaiveBayes(Base):
 
         try:
             self.train_model = FileUtil.load_model(self.kwargs)
-            self.naive_bayes.train_model = self.train_model
         except IOError as error:
             raise Exception(error)
         else:
             return True
 
-    def save_model(self):
-            """ Load train model from file
+    def save_model(self, model):
+        """ Load train model from file
         """
-
+        
         try:
-            self.train_model = FileUtil.load_model(self.kwargs)
-            self.naive_bayes.train_model = self.train_model
+            FileUtil.save_model(self.kwargs, model)
         except IOError as error:
-            raise Exception(error)
-        else:
-            return True
+            print(error)
 
     def train(self, dataset):
         """ Train model
         """
 
-        # Train the model with given dataset
-        self.naive_bayes = self.naive_bayes.train(dataset)
-        self.train_model = self.naive_bayes.train_model
+        # Calculate class priori
+        # Calculate likelihood of every feature per class
+        prioris = self.bayes_base.calculate_priori(dataset)
+        likelihoods = self.bayes_base.calculate_likelihood(dataset)
 
-        # Save model in temporary file
-        try:
-            FileUtil.save_model(self.kwargs, self.train_model)
-        except IOError as error:
-            print(error)
+        train_model = {}
+        for class_key, likelihood in likelihoods.items():
+            priori = prioris[class_key]
 
-        return self.train_model
+            if class_key not in train_model:
+                train_model[class_key] = []
 
-    def predict(self, test_dataset):
+            train_model[class_key].append(priori)
+            train_model[class_key].append(likelihood)
+
+        self.train_model = train_model
+        self.save_model(train_model)
+        return train_model
+
+    def predict(self, model, test_dataset):
         """ Make prediction
         """
+       
+        predictions = []
 
-        self.predictions, _ = self.naive_bayes.predict(test_dataset)
+        test_sample = copy.deepcopy(test_dataset)
 
-        return self.predictions
+        for subset in test_sample:
+            # remove label from test dataset
+            del subset[-1]
+            _, label = self.bayes_base.calculate_posteriori(model, subset)
+            ''' if best_label is None or posteriori > best_prob:
+                best_prob = posteriori
+                best_label = label'''
+            ''' if label not in predictions:
+                predictions[label] = [] '''
+
+            predictions.append(label)
+        
+        self.predictions = predictions
+        return predictions
+
 
 

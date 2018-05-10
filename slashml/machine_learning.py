@@ -45,3 +45,15 @@ class MachineLearning(object):
                 no_train_set = no_train_set + 1
 
         return [dataset_by_class, test_set]
+
+    def accuracy(self, predictions, test_set):
+        """ Get Accuracy
+        """
+
+        correct = 0
+        for index, _ in enumerate(test_set):
+            if test_set[index][-1] == predictions[index]:
+                correct += 1
+
+        return round((correct / float(len(test_set))) * 100.0, 2)
+    
