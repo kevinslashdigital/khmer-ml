@@ -17,8 +17,7 @@ class ReadContent(object):
 
     def load_content(self, dname):
         """ Below scripts are to get content from all files in each folders """
-        _stemmer = LancasterStemmer()
-        _ignore_words = ['?', '$', '-']
+
         _save_path = os.getcwd()
         _directory_name = FileUtil.join_path(self.kwargs, dname)
         # Directory containing the files
@@ -28,21 +27,34 @@ class ReadContent(object):
             _words_each_articles = []   # List for storing all words in articles
             for files in os.listdir(_directory_name+'/'+folder):
                 if files.endswith(".txt"):
-                    _read_text = open(_directory_name+'/'+folder+'/'+files, "rU", encoding="utf-8", errors="surrogateescape")\
+                    _read_text = open(_directory_name+'/'+folder+'/'+files, "rU",\
+                                    encoding="utf-8", errors="surrogateescape")
                     # Open file for reading
                     _lines = _read_text.read()# Read content from file
-                    _stop_words = set(stopwords.words('english'))\
-                    # Stop words from English language
-                    _new_words = [i for i in _lines.lower().split()\
-                                    if i not in _stop_words]# Remove stop words
-                    _words = [_stemmer.stem(w.lower()) for w in _new_words \
-                                if w not in _ignore_words]# Stemming the words
-                    _words_each_articles.append(_words)# Adding list to list
+                    _new_words = self.remove_stopword(_lines)
+                    _words_each_articles.append(_new_words)# Adding list to list
             _words_all_articles.append(_words_each_articles)
             os.chdir(_save_path)  # Moving directory to the saved path
         _all_words = self.merge_list_content(_words_all_articles)
 
         return _words_all_articles, _all_words
+
+    def remove_stopword(self, text):
+        """ Removing stop words
+        """
+        _stop_words = set(stopwords.words('english')) # Stop words from English language
+        _new_words = [i for i in text.lower().split()\
+                    if i not in _stop_words]# Remove stop words
+        return _new_words
+
+    def stemming_words(self, text):
+        """" Stemming the article"""
+
+        _stemmer = LancasterStemmer()
+        _ignore_words = ['?', '$', '-']
+        _word = [_stemmer.stem(w.lower()) for w in text \
+                                if w not in _ignore_words]# Stemming the words
+        return _word
 
     def merge_list_content(self, list_of_list):
         """ This method is for merging list contents in list into one list """
