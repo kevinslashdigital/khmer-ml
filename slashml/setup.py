@@ -21,6 +21,10 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('naive_bayes')
     config.add_subpackage('preprocessing')
 
+    config.add_subpackage('algorithm')
+    config.add_subpackage('algorithm/neural_network')
+
+
     return config
 
 

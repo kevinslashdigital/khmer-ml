@@ -31,6 +31,14 @@ class ReadContent(object):
                     _read_text = open(_directory_name+'/'+folder+'/'+files, "rU", encoding="utf-8", errors="surrogateescape")\
                     # Open file for reading
                     _lines = _read_text.read()# Read content from file
+
+                    #import io
+                    #_slash_dir = _directory_name+'/'+folder+'/'+files
+                    # with io.open(_slash_dir, "r", encoding="utf-8") as my_file:
+                    #_lines = my_file.read()
+
+                    # Open file for reading
+                    #_lines = _read_text.read()# Read content from file
                     _stop_words = set(stopwords.words('english'))\
                     # Stop words from English language
                     _new_words = [i for i in _lines.lower().split()\
@@ -38,6 +46,7 @@ class ReadContent(object):
                     _words = [_stemmer.stem(w.lower()) for w in _new_words \
                                 if w not in _ignore_words]# Stemming the words
                     _words_each_articles.append(_words)# Adding list to list
+
             _words_all_articles.append(_words_each_articles)
             os.chdir(_save_path)  # Moving directory to the saved path
         _all_words = self.merge_list_content(_words_all_articles)

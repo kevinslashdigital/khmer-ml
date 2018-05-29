@@ -135,15 +135,25 @@ class NaiveBayesTemplate(Base):
         """ This function is used to test the functionality of this class
         """
 
-        filename = "feature22_1.csv"
-        dataset_path = FileUtil.dataset_path(self.kwargs, filename)
-        dataset_sample = FileUtil.load_csv(dataset_path)
+        #filename = "feature22_1.csv"
+        #filename = "data.csv"
+        #path_to_cvs_dataset = FileUtil.path_to_file(self.kwargs, self.kwargs['dataset'], filename)
+        #dataset_path = FileUtil.dataset_path(self.kwargs, filename)
+        #dataset_sample = FileUtil.load_csv(path_to_cvs_dataset)
 
         test_counter = 0
         accuracy_list = []
-        while test_counter < 1:
+        while test_counter < 20:
 
-            #traning_model = FileUtil.load_model(CONFIG)
+            # Trace computing time of this train and prediction process
+            # Start time
+            from time import clock
+            start = clock()
+
+            filename = "data.csv"
+            path_to_cvs_dataset = FileUtil.path_to_file(self.kwargs, self.kwargs['dataset'], filename)
+            #dataset_path = FileUtil.dataset_path(self.kwargs, filename)
+            dataset_sample = FileUtil.load_csv(path_to_cvs_dataset)
 
             # Splite dataset into two subsets: traning_set and test_set
             # training_set:
@@ -163,6 +173,11 @@ class NaiveBayesTemplate(Base):
 
             # Increment counter
             test_counter = test_counter + 1
+
+            end = clock()
+            elapsed = end - start
+
+            print('Computing time %s %s' %(test_counter, elapsed))
 
             # Keep tracking the accuracy per operation
             accuracy_list.append(accuracy)

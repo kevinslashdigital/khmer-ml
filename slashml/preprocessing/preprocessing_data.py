@@ -1,5 +1,5 @@
 """
-    This script contains a class mainly for preprocessing the data and return 
+    This script contains a class mainly for preprocessing the data and return
 """
 
 from collections import Counter

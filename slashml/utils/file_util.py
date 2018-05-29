@@ -43,6 +43,25 @@ class FileUtil(object):
         return _dataset
 
     @staticmethod
+    def load_csv_np(filename):
+        """ Load data from a text file
+
+        When spaces are used as delimiters, or when no delimiter has been given as input\
+        , there should not be any missing data between two fields.
+        When the variables are named (either by a flexible dtype or with names\
+        , there must not be any header in the file (else a ValueError exception is raised).
+        Individual values are not stripped of spaces by default. When using a custom converter
+        , make sure the function does remove spaces
+        """
+
+        from numpy import genfromtxt
+
+        # Data read from the text file. If usemask is True, this is a masked array.
+        _dataset = genfromtxt(filename, delimiter=',')
+
+        return _dataset
+
+    @staticmethod
     def dataset_path(config, filename):
         """ path to file
         """
