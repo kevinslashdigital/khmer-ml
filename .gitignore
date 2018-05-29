@@ -8,3 +8,7 @@ slashml/build/
 **/__pycache__
 **/__pycache__
 slashml/preprocessing/__pycache__ slashml/utils/__pycache__
+.DS_Store
+slashml/.DS_Store
+slashml/algorithm/.DS_Store slashml/naive_bayes/.DS_Store
+slashml/algorithm/neural_network/.DS_Store
