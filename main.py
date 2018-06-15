@@ -40,6 +40,6 @@ if __name__ == "__main__":
     # make a prediction
     predictions = algo.predict(model, test_set)
     acc = ml.accuracy(predictions,test_set)
- 
+
     print('training_set', len(training_set))
     print('predictions, prediction_details', predictions, acc)
