@@ -18,7 +18,7 @@ class Base(ABC):
         pass
 
     @abstractmethod
-    def save_model(self):
+    def save_model(self, model):
         """ load dataset extraction
         """
         pass
@@ -30,8 +30,7 @@ class Base(ABC):
         pass
 
     @abstractmethod
-    def predict(self, test_dataset):
+    def predict(self, model, test_dataset):
         """ load dataset extraction
         """
         pass
-

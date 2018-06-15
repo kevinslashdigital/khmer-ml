@@ -1,6 +1,6 @@
 import random
 from slashml.algorithms.bayes.naive_bayes import NaiveBayes
-
+from slashml.algorithms.decisiontree.decision_tree import DecisionTree
 class MachineLearning(object):
 
     def __init__(self, *args, **kwargs):
@@ -10,6 +10,14 @@ class MachineLearning(object):
     # Naivae Bayes Algorithm
     def NiaveBayes(self):
         return NaiveBayes(**self.kwargs)
+    
+    # Decision Tree Algorithm
+    def DecisionTree(self,criterion='gini', prune='depth', max_depth=3, min_criterion=0.05):
+        self.kwargs['criterion'] = criterion
+        self.kwargs['prune'] = prune
+        self.kwargs['max_depth'] = max_depth
+        self.kwargs['min_criterion'] = min_criterion
+        return DecisionTree(**self.kwargs)
 
     # Another Algorithms
 
