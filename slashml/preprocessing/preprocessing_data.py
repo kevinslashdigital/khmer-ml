@@ -80,14 +80,20 @@ class Preprocessing(object):
                     row.append(dic[words])# Adding to row
                 row.append(index)
                 mat.append(row)
-        self.write_mat('D:/ML_text_classification/New folder/slashml_main/data/dataset/matrix/',\
-                    feature_choice, threshold, mat)
-        return mat# returning feature matrix
+
+        # Write to .csv file
+        _directory_name = FileUtil.join_path(self.kwargs, self.kwargs['dataset'])
+        self.write_mat(_directory_name, feature_choice, threshold, mat)
+        #self.write_mat('D:/ML_text_classification/New folder/slashml_main/data/dataset/matrix/',\
+        #            feature_choice, threshold, mat)
+
+        # returning feature matrix
+        return mat
 
     def write_mat(self, path_to_file, feature_choice, threshold, feature_mat):
         """ Method to write matrix into a file
         """
-        _mat_file = open(path_to_file+feature_choice+'_'+str(threshold)+'.csv', "w+")
+        _mat_file = open(path_to_file + '/' + feature_choice+'_'+str(threshold)+'.csv', "w+")
 
         for _feature in feature_mat:
             _temp = str(_feature)

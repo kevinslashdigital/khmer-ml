@@ -65,7 +65,7 @@ class ReadContent(object):
 
         return list(set(_all_words))
 
-if __name__ == "__main__":
+''' if __name__ == "__main__":
 
     CONFIG = {
         'root': 'D:/ML_text_classification/slash-ml/slashml',
@@ -78,4 +78,4 @@ if __name__ == "__main__":
     test = ReadContent(**CONFIG)
     worlds_articles, all_words = test.load_content('data/dataset/text')
     print(worlds_articles)
-    print(all_words)
+    print(all_words) '''

@@ -11,9 +11,10 @@ from slashml.utils.file_util import FileUtil
 if __name__ == "__main__":
 
     config = {
-        'root': '/Data/Projects/ML/slashml/slash-ml',
+        'root': '/Users/lion/Documents/py-workspare/openml/slash-ml',
         'text_dir': 'data/dataset/text',
         'dataset': 'data/dataset/matrix',
+        'bag_of_words': 'data/dataset/bag_of_words',
         'train_model': 'data/naive_bayes.model',
         # 'mode': 'unicode'
     }
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     ml = MachineLearning(**config)
 
     #load dataset from file (feature data)
-    filename = "data.csv"
+    filename = "doc_freq_15.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
     dataset_sample = FileUtil.load_csv(dataset_path)
 
