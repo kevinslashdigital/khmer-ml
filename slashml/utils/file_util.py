@@ -114,6 +114,20 @@ class FileUtil(object):
             return model
 
     @staticmethod
+    def load_pickle(config, pickle_filename):
+        """ Read .pickle file
+        """
+
+        path_to_pickle = os.path.join(config['root'], pickle_filename)
+        try:
+            with open(path_to_pickle, 'rb') as handle:
+                model = pickle.load(handle)
+        except pickle.UnpicklingError as error:
+            raise Exception(error)
+        else:
+            return model
+
+    @staticmethod
     def extract_zipfile(path_to_zipefile, dest_path):
         """ Extract zipfile sent from client
         Store temporarily in server
@@ -173,13 +187,14 @@ class FileUtil(object):
 if __name__ == "__main__":
 
     config = {
-        'root': '/Users/lion/Documents/py-workspare/slash-ml/slashml',
+        'root': 'D:/ML_text_classification/New folder/slashml_main',
         'model_dataset': 'data/dataset',
         'dataset': 'db.khmer.json',
         'train_model': 'data/naive_bayes_model.pickle',
         'train_dataset': 'data/train_dataset.pickle',
         'test_dataset': 'data/test_dataset.pickle',
         'text_dir': 'data/dataset/text',
+        'bag_of_words': 'data/dataset/bag_of_words',
         'archive_dir': 'data/dataset/temp',
         'mode': 'unicode'
     }
