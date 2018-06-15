@@ -25,3 +25,6 @@ If you already have a working installation of numpy and nltk, from terminal to e
     python setup.py install --record files.txt
 
     sudo -H pip install pytest --ignore-installed six
+
+
+    sudo -H  /usr/local/bin/python3 -m pip install -U pylint --user
