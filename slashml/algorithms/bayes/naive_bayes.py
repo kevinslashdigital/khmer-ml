@@ -73,14 +73,9 @@ class NaiveBayes(Base, BayesBase):
 
         for subset in test_sample:
             # remove label from test dataset
-<<<<<<< HEAD
-            del subset[-1]
-            _, label = self.calculate_posteriori(model, subset)
-=======
             if len(test_dataset) > 1:
                 del subset[-1]
             _, label = self.bayes_base.calculate_posteriori(model, subset)
->>>>>>> a3adae9591be6d223a5229bd75700461f281a2ea
             ''' if best_label is None or posteriori > best_prob:
                 best_prob = posteriori
                 best_label = label'''
