@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     ml = MachineLearning(**config)
 
-    #load dataset from file
+    #load dataset from file (feature data)
     filename = "data.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
     dataset_sample = FileUtil.load_csv(dataset_path)
