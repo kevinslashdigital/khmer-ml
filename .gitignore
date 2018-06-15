@@ -8,4 +8,4 @@ slashml/build/
 **/__pycache__
 **/__pycache__
 slashml/preprocessing/__pycache__ slashml/utils/__pycache__
-.vscode/settings.json
+.vscode
