@@ -5,11 +5,8 @@
 from abc import ABC, abstractmethod
 
 import numpy
-from numpy import random, exp
+from numpy import exp
 
-#import sys
-#sys.path.append('/Users/lion/Documents/py-workspare/slash-ml/slash-ml/slashml')
-#from slashml.utils.file_util import FileUtil
 
 class Base(object):
     """ Neural Network Base
@@ -155,9 +152,6 @@ class Base(object):
         change_output_layouts = []
         n_inputs = 0
 
-        #factor = 1
-        #min_value = -0.5
-
         for _, n_output_nodes in enumerate(hidden_layer_sizes):
 
             #if index  is not layers:
@@ -166,7 +160,7 @@ class Base(object):
 
             # Create matrix of
             # n_inputs_neuron as row and n_neurons as column
-            # Random value in interal [-1, 1)
+            # Random value in interal [0, 1)
 
             # create randomized weights
             # use scheme from Efficient Backprop by LeCun 1998 to initialize weights for hidden layer
@@ -179,7 +173,6 @@ class Base(object):
             change_output = numpy.zeros((n_inputs, n_output_nodes))
             change_output_layouts.append(change_output)
 
-            #synaptic_weight = factor * random.random((n_inputs, n_output_nodes)) + min_value
             # n_output_nodes is input for next layer
             n_inputs = n_output_nodes
 
@@ -189,7 +182,6 @@ class Base(object):
 
         # Add layer to list
         # Output layer
-        #synaptic_weight = factor * random.random((n_inputs, n_labels)) + min_value
         synaptic_weight = numpy.random.uniform(size=(n_inputs, n_labels)) / numpy.sqrt(n_inputs)
         layers.append(synaptic_weight)
 
@@ -241,7 +233,8 @@ class Base(object):
         """ tanh is a little nicer than the standard 1/(1+e^-x)
         """
 
-        return numpy.tanh(X)
+        #return 1.7159 * numpy.tanh((2/3)*X)
+        return numpy.tanh(X, out=X)
 
     def derivative_tanh(self, X, delta):
         """Apply the derivative of the hyperbolic tanh function.
@@ -256,6 +249,8 @@ class Base(object):
             The backpropagated error signal to be modified inplace.
         """
 
+        #delta *= (1 - X ** 2)
+        #delta *= 1.1493*(1 - ((2/3)*X) ** 2)
         delta *= (1 - X ** 2)
         return delta
 
