@@ -12,3 +12,7 @@ slashml/preprocessing/__pycache__ slashml/utils/__pycache__
 .pytest_cache
 *.pyc
 *.log
+config/env.json
+data/dataset/bag_of_words
+data/dataset/matrix
+*.model
