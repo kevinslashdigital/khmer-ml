@@ -4,6 +4,7 @@
 """
 import random
 import copy
+import json
 from slashml.machine_learning import MachineLearning
 from slashml.preprocessing.preprocessing_data import Preprocessing
 from slashml.utils.file_util import FileUtil
@@ -18,6 +19,8 @@ if __name__ == "__main__":
         'train_model': 'data/naive_bayes.model',
         # 'mode': 'unicode'
     }
+    # with open('config/env.sample.json') as json_data:
+    #   config = json.load(json_data)
     # preposessing
     prepro = Preprocessing(**config)
     dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 25)
