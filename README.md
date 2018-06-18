@@ -28,3 +28,6 @@ If you already have a working installation of numpy and nltk, from terminal to e
 
 
     sudo -H  /usr/local/bin/python3 -m pip install -U pylint --user
+
+
+    to run pytest with python3 >>> python3 -m pytest

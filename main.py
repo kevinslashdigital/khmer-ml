@@ -19,8 +19,8 @@ if __name__ == "__main__":
         # 'mode': 'unicode'
     }
     # preposessing
-    # prepro = Preprocessing(**config)
-    # dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 25)
+    prepro = Preprocessing(**config)
+    dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 25)
 
     ml = MachineLearning(**config)
 
@@ -30,10 +30,10 @@ if __name__ == "__main__":
     dataset_sample = FileUtil.load_csv(dataset_path)
 
     # dataset -> train, test
-    training_set, test_set = ml.split_dataset(dataset_sample, 2)
+    training_set, test_set = ml.split_dataset(dataset_sample, 3)
     # choose your algorithm
-    # algo = ml.NiaveBayes()
-    algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=3, min_criterion=0.05)
+    algo = ml.NiaveBayes()
+    # algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=3, min_criterion=0.05)
     # train or load model
     model = algo.train(training_set)
     # model = algo.load_model()
@@ -43,3 +43,4 @@ if __name__ == "__main__":
 
     print('training_set', len(training_set))
     print('predictions, prediction_details', predictions, acc)
+    print('label', ml.to_label(predictions))
