@@ -9,17 +9,16 @@ from slashml.utils.file_util import FileUtil
 from slashml.algorithms.base import Base
 
 
-class NaiveBayes(Base):
+class NaiveBayes(Base, BayesBase):
     """
         Naive Bayes class
     """
 
     def __init__(self, **kwargs):
-        # super(NaiveBayes, self).__init__(**kwargs)
+        # BayesBase.__init__(**kwargs)
         self.kwargs = kwargs
         self.train_model = {}
         self.predictions = []
-        self.bayes_base = BayesBase(**kwargs)
 
     def load_model(self):
         """ Load train model from file
@@ -47,8 +46,8 @@ class NaiveBayes(Base):
 
         # Calculate class priori
         # Calculate likelihood of every feature per class
-        prioris = self.bayes_base.calculate_priori(dataset)
-        likelihoods = self.bayes_base.calculate_likelihood(dataset)
+        prioris = self.calculate_priori(dataset)
+        likelihoods = self.calculate_likelihood(dataset)
 
         train_model = {}
         for class_key, likelihood in likelihoods.items():
@@ -67,7 +66,7 @@ class NaiveBayes(Base):
     def predict(self, model, test_dataset):
         """ Make prediction
         """
-       
+      
         predictions = []
 
         test_sample = copy.deepcopy(test_dataset)
@@ -76,7 +75,8 @@ class NaiveBayes(Base):
             # remove label from test dataset
             if len(test_dataset) > 1:
                 del subset[-1]
-            _, label = self.bayes_base.calculate_posteriori(model, subset)
+
+            _, label = self.calculate_posteriori(model, subset)
             ''' if best_label is None or posteriori > best_prob:
                 best_prob = posteriori
                 best_label = label'''

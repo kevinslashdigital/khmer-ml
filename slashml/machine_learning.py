@@ -1,6 +1,7 @@
 import random
 from slashml.algorithms.bayes.naive_bayes import NaiveBayes
-
+from slashml.algorithms.decisiontree.decision_tree import DecisionTree
+from slashml.utils.file_util import FileUtil
 class MachineLearning(object):
 
     def __init__(self, *args, **kwargs):
@@ -10,6 +11,14 @@ class MachineLearning(object):
     # Naivae Bayes Algorithm
     def NiaveBayes(self):
         return NaiveBayes(**self.kwargs)
+
+    # Decision Tree Algorithm
+    def DecisionTree(self,criterion='gini', prune='depth', max_depth=3, min_criterion=0.05):
+        self.kwargs['criterion'] = criterion
+        self.kwargs['prune'] = prune
+        self.kwargs['max_depth'] = max_depth
+        self.kwargs['min_criterion'] = min_criterion
+        return DecisionTree(**self.kwargs)
 
     # Another Algorithms
 
@@ -56,4 +65,13 @@ class MachineLearning(object):
                 correct += 1
 
         return round((correct / float(len(test_set))) * 100.0, 2)
-    
+
+
+    def to_label(self, label_values):
+      label_load = FileUtil.load_pickle('data/dataset/bag_of_words/label_match.pickle')
+      result = []
+      for label_value in label_values:
+        for label, value in label_load.items():
+          if value == label_value:
+            result.append(label)
+      return result

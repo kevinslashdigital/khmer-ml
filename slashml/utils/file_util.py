@@ -46,37 +46,34 @@ class FileUtil(object):
     def dataset_path(config, filename):
         """ path to file
         """
-
-        path = os.path.join(config['root'], config['dataset'], filename)
+        path = os.path.join(os.getcwd(), config['dataset'], filename)
 
         return path
 
     @staticmethod
-    def path_to_file(config, dirname, filename):
+    def path_to_file(dirname, filename):
         """ path to file
         """
 
-        path = os.path.join(config['root'], dirname, filename)
+        path = os.path.join(os.getcwd(), dirname, filename)
 
         return path
 
     @staticmethod
-    def join_path(config, dirname):
+    def join_path( dirname):
         """ path to file
         """
-
-        path = os.path.join(config['root'], dirname)
+        path = os.path.join(os.getcwd(), dirname)
 
         return path
 
     @staticmethod
-    def save_pickle_dataset(config, pickle_filename, dataset):
+    def save_pickle_dataset( pickle_filename, dataset):
         """ The pickle module implements binary protocols
         for serializing and de-serializing a Python object structure.
 
         """
-
-        path_to_pickle = os.path.join(config['root'], pickle_filename)
+        path_to_pickle = os.path.join(os.getcwd(), pickle_filename)
         with open(path_to_pickle, 'wb') as handle:
             pickle.dump(dataset, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
@@ -90,7 +87,7 @@ class FileUtil(object):
         """
 
         #s_model = {'hello': 'world'}
-        path_to_pickle = os.path.join(config['root'], config['train_model'])
+        path_to_pickle = os.path.join(os.getcwd(), config['train_model'])
         try:
             with open(path_to_pickle, 'wb') as handle:
                 pickle.dump(model, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -104,7 +101,7 @@ class FileUtil(object):
         """ Read .pickle file
         """
 
-        path_to_pickle = os.path.join(config['root'], config['train_model'])
+        path_to_pickle = os.path.join(os.getcwd(), config['train_model'])
         try:
             with open(path_to_pickle, 'rb') as handle:
                 model = pickle.load(handle)
@@ -114,11 +111,11 @@ class FileUtil(object):
             return model
 
     @staticmethod
-    def load_pickle(config, pickle_filename):
+    def load_pickle(pickle_filename):
         """ Read .pickle file
         """
 
-        path_to_pickle = os.path.join(config['root'], pickle_filename)
+        path_to_pickle = os.path.join(os.getcwd(), pickle_filename)
         try:
             with open(path_to_pickle, 'rb') as handle:
                 model = pickle.load(handle)
@@ -184,34 +181,9 @@ class FileUtil(object):
 
         return True
 
-if __name__ == "__main__":
-
-    config = {
-        'root': 'D:/ML_text_classification/New folder/slashml_main',
-        'model_dataset': 'data/dataset',
-        'dataset': 'db.khmer.json',
-        'train_model': 'data/naive_bayes_model.pickle',
-        'train_dataset': 'data/train_dataset.pickle',
-        'test_dataset': 'data/test_dataset.pickle',
-        'text_dir': 'data/dataset/text',
-        'bag_of_words': 'data/dataset/bag_of_words',
-        'archive_dir': 'data/dataset/temp',
-        'mode': 'unicode'
-    }
-
-    text_file = 'data.zip'
-    text_file = '.DS_Store'
-
-    #path_to_zipfile = FileUtil.path_to_file(config, 'data/dataset/text', text_file)
-    #path_to_tempdir = FileUtil.path_to_file(config, config['archive_dir'], text_file)
-    #is_success = FileUtil.move_file(path_to_zipfile, path_to_tempdir)
-    path_to_tempdir = FileUtil.path_to_file(config, config['text_dir'], text_file)
-    is_removed = FileUtil.remove_file(path_to_tempdir)
-
-    #csv_filename = 'feature16_13.csv'
-    #abspath_file = FileUtil.dataset_path(config_, csv_filename)
-
-    #print('Filename %s' % abspath_file)
-
-    #dataset = FileUtil.read_file(abspath_file, "CSV")
-    #print('file csv ', dataset)
+    @staticmethod
+    def print(*args):
+        try:
+            print(args)
+        except UnicodeEncodeError:
+            print('cannot print')

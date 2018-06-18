@@ -23,3 +23,11 @@ User Installation
 If you already have a working installation of numpy and nltk, from terminal to execute the following command to install slash-ml
 
     python setup.py install --record files.txt
+
+    sudo -H pip install pytest --ignore-installed six
+
+
+    sudo -H  /usr/local/bin/python3 -m pip install -U pylint --user
+
+
+    to run pytest with python3 >>> python3 -m pytest
