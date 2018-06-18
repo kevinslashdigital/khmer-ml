@@ -29,11 +29,11 @@ class DecisionTreeClassifier(Base):
         self.root.build(X_train, y_train, self.criterion)
 
 
-    def predict(self, y_test):
+    def predict(self, X_test):
         """ Make prediction
         """
 
-        return numpy.array([self.root.predict(f) for f in y_test])
+        return numpy.array([self.root.predict(f) for f in X_test])
 
     def show_tree(self):
         self.root.show_tree(0, ' ')

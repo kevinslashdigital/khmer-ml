@@ -141,3 +141,35 @@ class Base(ABC):
             label_matrix[i][index] = numpy.float(1.0)
 
         return label_matrix
+
+
+    def normalize_dataset(self, dataset):
+        """ Transform data frequency to categorical data
+        """
+
+
+        feature_15 = dataset
+
+        # % 0 : mean, 1 : mid point
+        choice = 1
+
+        # Every Attribute, determind the best information gain/gini
+        for col_index in range(feature_15.shape[2] - 1):
+            # Sort dataset following descendant label
+            # dataset[:, -1].argsort # Sort the last field (column)
+            # dataset = dataset[dataset[:,1].argsort(kind='mergesort')]
+            feature = dataset[:, col_index]
+            sort_feature = numpy.sort(feature)
+
+            if choice == 1:
+                index = numpy.floor(len(sort_feature)/2).astype('int')
+                value = sort_feature(index)
+            elif choice == 0:
+                value = numpy.average(sort_feature)
+
+            feature[sort_feature < value] = 0
+            feature[sort_feature >= value] = 1
+
+            dataset[:, col_index] = feature
+
+        return dataset
