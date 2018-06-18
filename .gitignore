@@ -11,3 +11,4 @@ slashml/preprocessing/__pycache__ slashml/utils/__pycache__
 .vscode
 .pytest_cache
 *.pyc
+*.log

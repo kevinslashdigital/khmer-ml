@@ -47,13 +47,16 @@ class ReadContent(object):
     _stop_words = set(stopwords.words('english')) # Stop words from English language
     _new_words = [i for i in  nltk.word_tokenize(text)\
                 if i not in _stop_words]# Remove stop words
+    # remove all tokens that are not alphabetic (non-english word)
+    _new_words = [word for word in _new_words if word.isalpha()]
     return _new_words
 
   def stemming_words(self, text):
     """" Stemming the article"""
 
     _stemmer = LancasterStemmer()
-    _ignore_words = ['?', '$', '-', ',', '.', ';', ':', '``', '\'s', '\udc94', '[', ']']
+    # _ignore_words = ['?', '$', '-', ',', '.', ';', ':', '``', '\'s', '\udc94', '[', ']', '%']
+    _ignore_words = ['?', '$']
     _word = [_stemmer.stem(w.lower()) for w in text \
                             if w not in _ignore_words]# Stemming the words
     return _word

@@ -1,10 +1,11 @@
 """
-    This script contains a class mainly for preprocessing the data and return 
+    This script contains a class mainly for preprocessing the data and return
 """
 
 from collections import Counter
 from slashml.preprocessing.read_content import ReadContent
 from slashml.utils.file_util import FileUtil
+from slashml.utils.log import Log
 
 class Preprocessing(object):
   """"
@@ -13,7 +14,7 @@ class Preprocessing(object):
   def __init__(self, **kwargs):
     self.kwargs = kwargs
 
-  def loading_data(self, folders, feature_choice, threshold):
+  def loading_data(self, folders, feature_choice, fq_type, threshold):
     """ Loading the data from txt files in folders"""
     content = ReadContent(**self.kwargs)
     _words_articles, _all_words = content.load_content(folders)
@@ -22,10 +23,10 @@ class Preprocessing(object):
     _temp_all_words.append(threshold)
 
     if feature_choice == 'doc_freq':
-        _tfidf = self.doc_frequency(_words_articles, _all_words, feature_choice, threshold)
+        _tfidf = self.doc_frequency(_words_articles, _all_words, feature_choice, fq_type, threshold)
     return _tfidf
 
-  def doc_frequency(self, words_articles, all_words, feature_choice, threshold):
+  def doc_frequency(self, words_articles, all_words, feature_choice, fq_type, threshold):
     """
         This method aims at feature selection based
         on terms appearing in the articles.
@@ -56,16 +57,13 @@ class Preprocessing(object):
 
     _tfidf_mat = []
     _selected_words = []
-    for word in _frequency:
-      if _frequency[word] >= threshold:
-        FileUtil.print('_frequency[word]',word, _frequency[word])
-      # print(_frequency[word])
-      if _frequency[word] >= threshold:
-        # Consider only terms which appear in
-        # documents more than a threshold
-        _selected_words.append(word)
-    
-    # print(_selected_words)
+    if fq_type == 'all':
+      _selected_words = self.fq_all(_frequency, threshold)
+    elif fq_type == 'class':
+      _selected_words = self.fq_by_class(_preq_words, threshold)
+    else:
+      _selected_words = self.fq_by_top(_preq_words, threshold)
+
     _selected_words = list(set(_selected_words))
     _bag_of_words = self.compute_feature_matrix(_selected_words,\
                         words_articles, _label_match, feature_choice, threshold)
@@ -93,7 +91,7 @@ class Preprocessing(object):
 
   def compute_feature_matrix(self, word_in_dic, text_in_articles, label_match, feature_choice, threshold):
     """ Computing the feature matrix """
-    
+
     mat = [] # feature matrix
     for label in text_in_articles.keys(): # each class
       for doc in text_in_articles[label]: # all words in each class
@@ -142,5 +140,36 @@ class Preprocessing(object):
       row.append(words[word])# Adding to row
     return row
 
+  def fq_all(self,frequency, threshold):
+    _selected_words = []
+    for word in frequency:
+      if frequency[word] >= threshold:
+        FileUtil.print('frequency[word]',word, frequency[word])
+        # Consider only terms which appear in
+        # documents more than a threshold
+        _selected_words.append(word)
+    Log('fq_all_selected_word.log').log(_selected_words)
+    return _selected_words
 
+  def fq_by_class(self,frequency_class, threshold):
+    _selected_words = []
+    for label,words in frequency_class.items():
+      for word in frequency_class[label]:
+        if words[word] >= threshold:
+          FileUtil.print('frequency[word]',word, words[word])
+          _selected_words.append(word)
 
+    Log('fq_by_class_selected_word.log').log(_selected_words)
+    return _selected_words
+
+  def fq_by_top(self,frequency_class, top):
+    _selected_words = []
+    for label, words in frequency_class.items():
+      most_common = Counter(words).most_common(top)
+      print(most_common)
+      for word in most_common:
+        FileUtil.print('frequency[word]',word[0], word[1])
+        _selected_words.append(word[0])
+
+    Log('fq_by_class_top.log').log(_selected_words)
+    return _selected_words

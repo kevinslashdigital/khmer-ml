@@ -20,17 +20,17 @@ if __name__ == "__main__":
     }
     # preposessing
     prepro = Preprocessing(**config)
-    dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 25)
+    dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq','top', 35)
 
     ml = MachineLearning(**config)
 
     #load dataset from file (feature data)
-    filename = "doc_freq_25.csv"
+    filename = "doc_freq_35.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
     dataset_sample = FileUtil.load_csv(dataset_path)
 
     # dataset -> train, test
-    training_set, test_set = ml.split_dataset(dataset_sample, 3)
+    training_set, test_set = ml.split_dataset(dataset_sample, 5)
     # choose your algorithm
     algo = ml.NiaveBayes()
     # algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=3, min_criterion=0.05)
