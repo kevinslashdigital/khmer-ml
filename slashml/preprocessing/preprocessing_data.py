@@ -2,10 +2,12 @@
     This script contains a class mainly for preprocessing the data and return
 """
 
+import os
 from collections import Counter
 from slashml.preprocessing.read_content import ReadContent
 from slashml.utils.file_util import FileUtil
 from slashml.utils.log import Log
+
 
 class Preprocessing(object):
   """"
