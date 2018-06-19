@@ -31,12 +31,13 @@ if __name__ == "__main__":
     dataset_sample = FileUtil.load_csv(dataset_path, use_numpy=True)
 
     # dataset -> train, test
-    training_set, test_set = ml.split_dataset(dataset_sample, 5)
+    # training_set, test_set = ml.split_dataset(dataset_sample, 5)
+    training_set, test_set = ml.train_test_split(dataset_sample, 5)
     # choose your algorithm
     algo = ml.NiaveBayes()
-    # algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=3, min_criterion=0.05)
+    algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=30, min_criterion=0.05)
     # train or load model
-    model = algo.train(X_train)
+    model = algo.train(training_set)
     # model = algo.load_model()
     # make a prediction
     predictions = algo.predict(model, test_set)
