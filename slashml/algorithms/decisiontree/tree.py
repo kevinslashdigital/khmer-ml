@@ -3,12 +3,12 @@
 
 import numpy as np
 
-class TreeBase(object):
+class Tree(object):
     """ Dicision Tree
     """
 
 
-    def __init__(self, max_depth):
+    def __init__(self, **kwargs):
         self.feature = None
         self.label = None
         self.n_samples = None
@@ -17,7 +17,8 @@ class TreeBase(object):
         self.right = None
         self.threshold = None
         self.depth = 0
-        self.max_depth = max_depth
+        self.max_depth = kwargs['max_depth']
+        self.kwargs = kwargs
 
 
     def build(self, features, target, criterion=None):
@@ -130,13 +131,14 @@ class TreeBase(object):
 
         features_l = features[features[:, self.feature] <= self.threshold]
         target_l = target[features[:, self.feature] <= self.threshold]
-        self.left = TreeBase(self.max_depth)
+        #self.left = Tree(self.max_depth)
+        self.left = Tree(**self.kwargs)
         self.left.depth = self.depth + 1
         self.left.build(features_l, target_l, criterion)
 
         features_r = features[features[:, self.feature] > self.threshold]
         target_r = target[features[:, self.feature] > self.threshold]
-        self.right = TreeBase(self.max_depth)
+        self.right = Tree(**self.kwargs)
         self.right.depth = self.depth + 1
         self.right.build(features_r, target_r, criterion)
 
@@ -226,16 +228,16 @@ class TreeBase(object):
             self.feature = None
 
 
-    def _predict(self, Y_test):
+    def _predict(self, X_test):
         """ Prediction of a new/unseen query instance.
         """
 
         # Node
         if self.feature is not None:
-            if Y_test[self.feature] <= self.threshold:
-                return self.left._predict(Y_test)
+            if X_test[self.feature] <= self.threshold:
+                return self.left._predict(X_test)
             else:
-                return self.right._predict(Y_test)
+                return self.right._predict(X_test)
         else: # Leaf
             return self.label
 

@@ -28,7 +28,18 @@ class FileUtil(object):
         return _data_matrix
 
     @staticmethod
-    def load_csv(filename):
+    def load_csv(filename, use_numpy=False):
+        """ Read data from csv file using python or numpy lib
+        """
+
+        if not use_numpy:
+            return FileUtil.load_csv_py(filename)
+        else:
+            return FileUtil.load_csv_np(filename)
+
+
+    @staticmethod
+    def load_csv_py(filename):
         """ Read data from csv file.
         """
 
@@ -41,6 +52,27 @@ class FileUtil(object):
         file_obj.close()
 
         return _dataset
+
+
+    @staticmethod
+    def load_csv_np(filename):
+        """ Load data from a text file
+
+        When spaces are used as delimiters, or when no delimiter has been given as input\
+        , there should not be any missing data between two fields.
+        When the variables are named (either by a flexible dtype or with names\
+        , there must not be any header in the file (else a ValueError exception is raised).
+        Individual values are not stripped of spaces by default. When using a custom converter
+        , make sure the function does remove spaces
+        """
+
+        from numpy import genfromtxt
+
+        # Data read from the text file. If usemask is True, this is a masked array.
+        _dataset = genfromtxt(filename, delimiter=',')
+
+        return _dataset
+
 
     @staticmethod
     def dataset_path(config, filename):

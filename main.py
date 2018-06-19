@@ -2,9 +2,6 @@
     Factory class
 
 """
-import random
-import copy
-import json
 from slashml.machine_learning import MachineLearning
 from slashml.preprocessing.preprocessing_data import Preprocessing
 from slashml.utils.file_util import FileUtil
@@ -22,15 +19,16 @@ if __name__ == "__main__":
     # with open('config/env.sample.json') as json_data:
     #   config = json.load(json_data)
     # preposessing
-    prepro = Preprocessing(**config)
-    dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq','top', 35)
+    # prepro = Preprocessing(**config)
+    # dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 25)
+    
 
     ml = MachineLearning(**config)
 
     #load dataset from file (feature data)
     filename = "doc_freq_35.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
-    dataset_sample = FileUtil.load_csv(dataset_path)
+    dataset_sample = FileUtil.load_csv(dataset_path, use_numpy=True)
 
     # dataset -> train, test
     training_set, test_set = ml.split_dataset(dataset_sample, 5)
@@ -38,7 +36,7 @@ if __name__ == "__main__":
     algo = ml.NiaveBayes()
     # algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=3, min_criterion=0.05)
     # train or load model
-    model = algo.train(training_set)
+    model = algo.train(X_train)
     # model = algo.load_model()
     # make a prediction
     predictions = algo.predict(model, test_set)

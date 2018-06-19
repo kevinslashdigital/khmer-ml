@@ -1,1 +1,1 @@
-from .tree_base import TreeBase
+from .tree import Tree

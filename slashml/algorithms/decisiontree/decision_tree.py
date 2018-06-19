@@ -3,13 +3,14 @@
 
 """
 import copy
+import numpy as np
 
-from slashml.algorithms.decisiontree.tree_base import TreeBase
+from slashml.algorithms.decisiontree.tree import Tree
 from slashml.utils.file_util import FileUtil
 from slashml.algorithms.base import Base
 
 
-class DecisionTree(Base, TreeBase):
+class DecisionTree(Base, Tree):
     """
         DecisionTree
     """
@@ -20,10 +21,16 @@ class DecisionTree(Base, TreeBase):
         self.predictions = []
         self.criterion = kwargs['criterion']
         self.prune = kwargs['prune']
-        self.max_depth = kwargs['max_depth']
+        #self.max_depth = kwargs['max_depth']
         self.min_criterion = kwargs['min_criterion']
+
+        # Tree to be built
+        #self.root = None
+
         # Call super
-        super(DecisionTree, self).__init__(**kwargs)
+        #super(DecisionTree, self).__init__(**kwargs)
+        Base.__init__(self, **kwargs)
+        Tree.__init__(self, **kwargs)
 
 
     """ def __init__(self, **kwargs):
@@ -56,40 +63,28 @@ class DecisionTree(Base, TreeBase):
         """ Train model
         """
 
-        X_train = dataset[dataset[:, (len(dataset[0]) -1)]];
-        y_train = dataset[dataset[:, -1]];
+        # Extract X_train and y_train
+        #y_train = dataset[dataset[:, -1]]
+        y_train = dataset[:, -1]
+        X_train = np.delete(dataset, -1, 1)
 
-        # self.root = Tree(self.max_depth)
-        train_model = self.build(X_train, y_train, self.criterion)
-        
-        self.train_model = train_model
-        self.save_model(train_model)
-        return train_model
+        # Start constructing tree
+        #self.root = Tree(self.max_depth)
+        self.build(X_train, y_train, self.criterion)
+
+        # Save final Tree to .pickle file
+        self.train_model = self.build(X_train, y_train, self.criterion)
+        self.save_model(self.train_model)
+        return self.train_model
+
 
     def predict(self, model, test_dataset):
         """ Make prediction
         """
-      
-        predictions = []
 
-        test_sample = copy.deepcopy(test_dataset)
+        # Get train and test label
+        #y_test = test_dataset[:, -1]
+        # Delete last column (label) from array
+        X_test = np.delete(test_dataset, -1, 1)
 
-        for subset in test_sample:
-            # remove label from test dataset
-            if len(test_dataset) > 1:
-                del subset[-1]
-
-            _, label = self.calculate_posteriori(model, subset)
-            ''' if best_label is None or posteriori > best_prob:
-                best_prob = posteriori
-                best_label = label'''
-            ''' if label not in predictions:
-                predictions[label] = [] '''
-
-            predictions.append(label)
-        
-        self.predictions = predictions
-        return predictions
-
-
-
+        return np.array([self._predict(feature) for feature in X_test])
