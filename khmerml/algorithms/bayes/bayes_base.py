@@ -1,13 +1,12 @@
-"""
-  Naive Bayes Probability
-"""
+
 import math
 from decimal import Decimal
 from functools import reduce
 
 class BayesBase(object):
   """
-    Naive Bayes class
+    BayesBase class is use for calculation in
+    Naive Bayes Algorithm
   """
 
   def __init__(self, **kwargs):

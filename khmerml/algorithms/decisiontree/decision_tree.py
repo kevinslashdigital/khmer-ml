@@ -1,6 +1,4 @@
-"""
-  Factory class
-"""
+
 import copy
 import ntpath
 import numpy as np
@@ -12,7 +10,7 @@ from khmerml.algorithms.base import Base
 
 class DecisionTree(Base, Tree):
   """
-    DecisionTree
+    DecisionTree class
   """
 
   def __init__(self, **kwargs):

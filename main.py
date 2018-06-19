@@ -1,6 +1,5 @@
 """
-    Factory class
-
+  Main class
 """
 from khmerml.machine_learning import MachineLearning
 from khmerml.preprocessing.preprocessing_data import Preprocessing
@@ -17,6 +16,7 @@ if __name__ == "__main__":
     'train_model': 'data/dataset/model/train.model',
     # 'mode': 'unicode'
   }
+
   """
     preposessing
   """
@@ -28,12 +28,12 @@ if __name__ == "__main__":
   dataset_sample = FileUtil.load_csv(dataset_path, use_numpy=True)
   dataset_sample = prepro.normalize_dataset(dataset_sample)
   """
-    end preposessing
+    end
   """
 
 
   """
-    traning
+    training
   """
   ml = MachineLearning(**config)
   # split dataset -> train set, test set
@@ -47,12 +47,12 @@ if __name__ == "__main__":
   # model = algo.load_model()
 
   """
-    traning
+    end
   """
 
 
   """
-    classify or predic
+    classify or predict
   """
   # make a prediction
   predictions = algo.predict(model, test_set)
@@ -64,5 +64,5 @@ if __name__ == "__main__":
   print('label', ml.to_label(predictions))
 
   """
-    end classify or predic
+    end
   """

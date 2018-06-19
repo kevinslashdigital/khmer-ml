@@ -1,9 +1,9 @@
 """
-    This script contains a class mainly for preprocessing the data and return
+  This script contains a class mainly for preprocessing the data and return
 """
 
 import os
-import numpy
+import numpy as np
 from collections import Counter
 from khmerml.preprocessing.read_content import ReadContent
 from khmerml.utils.file_util import FileUtil
@@ -176,12 +176,12 @@ class Preprocessing(object):
       # dataset[:, -1].argsort # Sort the last field (column)
       # dataset = dataset[dataset[:,1].argsort(kind='mergesort')]
       feature = dataset[:, col_index]
-      sort_feature = numpy.sort(feature)
+      sort_feature = np.sort(feature)
       if choice == 1:
-          index = numpy.floor(len(sort_feature)/2).astype('int')
+          index = np.floor(len(sort_feature)/2).astype('int')
           value = sort_feature[index]
       elif choice == 0:
-          value = numpy.average(sort_feature)
+          value = np.average(sort_feature)
 
       feature[sort_feature < value] = 0
       feature[sort_feature >= value] = 1

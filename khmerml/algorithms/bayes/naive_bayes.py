@@ -1,6 +1,4 @@
-"""
-  Factory class
-"""
+
 import copy
 import ntpath
 from khmerml.algorithms.bayes.bayes_base import BayesBase

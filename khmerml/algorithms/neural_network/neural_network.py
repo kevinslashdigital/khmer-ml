@@ -1,6 +1,3 @@
-"""
-  Back-Propagation Neural Networks Written in Python.
-"""
 
 import numpy
 import ntpath
@@ -13,7 +10,7 @@ from khmerml.algorithms.neural_network.neural_network_base import NeuralNetworkB
 
 class NeuralNetwork(Base, NeuralNetworkBase):
   """
-    Neural Network
+    Back-Propagation Neural Networks Written in Python.
   """
 
   def __init__(self, **kwargs):

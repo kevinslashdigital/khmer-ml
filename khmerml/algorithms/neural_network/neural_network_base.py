@@ -1,13 +1,11 @@
-"""
-  Neural Network base class
-"""
 
-import numpy
+import numpy as np
 from numpy import exp
 
 class NeuralNetworkBase(object):
   """
-    Neural Network Base
+    NeuralNetwork Base class is use for calculation in
+    Naive Bayes Algorithm
   """
 
   def __init__(self, **kwargs):
@@ -18,7 +16,7 @@ class NeuralNetworkBase(object):
       random.seed(random_state)
       Set float precision
     """
-    numpy.set_printoptions(precision=8)
+    np.set_printoptions(precision=8)
     self.kwargs = kwargs
 
 
@@ -28,14 +26,14 @@ class NeuralNetworkBase(object):
     """
     length = len(label_vector)
     n_label = len(set(label_vector))
-    unique_labels = numpy.unique(label_vector)
+    unique_labels = np.unique(label_vector)
     # Create matrix zeros m row x n columns
-    label_matrix = numpy.zeros((length, n_label))
+    label_matrix = np.zeros((length, n_label))
     # Replace value by 1 at position (i, label_vector(j))
     for i, value in enumerate(label_vector):
       #value = int(round(value))
-      index = numpy.where(unique_labels == value)[0]
-      label_matrix[i][index] = numpy.float(1.0)
+      index = np.where(unique_labels == value)[0]
+      label_matrix[i][index] = np.float(1.0)
     return label_matrix
 
   def make_weight_matrix(self, n_features, n_labels, hidden_layer_sizes):
@@ -58,30 +56,30 @@ class NeuralNetworkBase(object):
       # create randomized weights
       # use scheme from Efficient Backprop by LeCun 1998 to initialize weights for hidden layer
       input_range = 1.0 / n_inputs ** (1/2)
-      synaptic_weight = numpy.random.normal(loc=0, scale=input_range, size=(n_inputs, n_output_nodes))
+      synaptic_weight = np.random.normal(loc=0, scale=input_range, size=(n_inputs, n_output_nodes))
 
       # create arrays of 0 for changes
       # this is essentially an array of temporary values that gets updated at each iteration
       # based on how much the weights need to change in the following iteration
-      change_output = numpy.zeros((n_inputs, n_output_nodes))
+      change_output = np.zeros((n_inputs, n_output_nodes))
       change_output_layouts.append(change_output)
 
       # n_output_nodes is input for next layer
       n_inputs = n_output_nodes
 
       # Add layer to list
-      synaptic_weight = numpy.array(synaptic_weight)
+      synaptic_weight = np.array(synaptic_weight)
       layers.append(synaptic_weight)
 
     # Add layer to list
     # Output layer
-    synaptic_weight = numpy.random.uniform(size=(n_inputs, n_labels)) / numpy.sqrt(n_inputs)
+    synaptic_weight = np.random.uniform(size=(n_inputs, n_labels)) / np.sqrt(n_inputs)
     layers.append(synaptic_weight)
 
     # create arrays of 0 for changes
     # this is essentially an array of temporary values that gets updated at each iteration
     # based on how much the weights need to change in the following iteration
-    change_output = numpy.zeros((n_inputs, n_labels))
+    change_output = np.zeros((n_inputs, n_labels))
     change_output_layouts.append(change_output)
     return layers, change_output_layouts
 
@@ -98,7 +96,7 @@ class NeuralNetworkBase(object):
       X_new : {array-like, sparse matrix}, shape (n_samples, n_features)
       The transformed data.
     """
-    numpy.clip(X, 0, numpy.finfo(X.dtype).max, out=X)
+    np.clip(X, 0, np.finfo(X.dtype).max, out=X)
     return X
 
 
@@ -122,7 +120,7 @@ class NeuralNetworkBase(object):
     """
       tanh is a little nicer than the standard 1/(1+e^-x)
     """
-    return numpy.tanh(X, out=X)
+    return np.tanh(X, out=X)
 
   def derivative_tanh(self, X, delta):
     """
