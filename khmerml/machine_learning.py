@@ -1,10 +1,10 @@
 import random
 import numpy
 
-from slashml.algorithms.bayes.naive_bayes import NaiveBayes
-from slashml.algorithms.decisiontree.decision_tree import DecisionTree
-from slashml.algorithms.neural_network.neural_network import NeuralNetwork
-from slashml.utils.file_util import FileUtil
+from khmerml.algorithms.bayes.naive_bayes import NaiveBayes
+from khmerml.algorithms.decisiontree.decision_tree import DecisionTree
+from khmerml.algorithms.neural_network.neural_network import NeuralNetwork
+from khmerml.utils.file_util import FileUtil
 
 class MachineLearning(object):
 

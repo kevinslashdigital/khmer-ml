@@ -5,9 +5,9 @@
 import os
 import numpy
 from collections import Counter
-from slashml.preprocessing.read_content import ReadContent
-from slashml.utils.file_util import FileUtil
-from slashml.utils.log import Log
+from khmerml.preprocessing.read_content import ReadContent
+from khmerml.utils.file_util import FileUtil
+from khmerml.utils.log import Log
 
 
 class Preprocessing(object):

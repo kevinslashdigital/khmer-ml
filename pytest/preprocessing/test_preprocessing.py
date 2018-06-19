@@ -5,7 +5,7 @@ import pytest
 syspath = 'slash-ml'
 sys.path.append(os.path.abspath(os.path.join('..', syspath)))
 
-from slashml.preprocessing.preprocessing_data import Preprocessing
+from khmerml.preprocessing.preprocessing_data import Preprocessing
 
 class TestPreprocessing:
   def test_loading_data(self):

@@ -4,9 +4,9 @@
 """
 import copy
 
-from slashml.algorithms.bayes.bayes_base import BayesBase
-from slashml.utils.file_util import FileUtil
-from slashml.algorithms.base import Base
+from khmerml.algorithms.bayes.bayes_base import BayesBase
+from khmerml.utils.file_util import FileUtil
+from khmerml.algorithms.base import Base
 
 
 class NaiveBayes(Base, BayesBase):

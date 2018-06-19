@@ -4,10 +4,10 @@
 
 import sys, os
 import argparse
-sys.path.append(os.path.abspath(os.path.join('..', 'slashml/slash-ml')))
+sys.path.append(os.path.abspath(os.path.join('..', 'khmerml/slash-ml')))
 
-from slashml.machine_learning import MachineLearning
-from slashml.utils.file_util import FileUtil
+from khmerml.machine_learning import MachineLearning
+from khmerml.utils.file_util import FileUtil
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     config = {
-        'root': '/Data/Projects/ML/slashml/slash-ml',
+        'root': '/Data/Projects/ML/khmerml/slash-ml',
         'text_dir': 'data/dataset/text',
         'dataset': 'data/dataset/matrix',
         'train_model': 'data/naive_bayes.model',

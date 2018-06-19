@@ -5,9 +5,9 @@
 import copy
 import numpy as np
 
-from slashml.algorithms.decisiontree.tree import Tree
-from slashml.utils.file_util import FileUtil
-from slashml.algorithms.base import Base
+from khmerml.algorithms.decisiontree.tree import Tree
+from khmerml.utils.file_util import FileUtil
+from khmerml.algorithms.base import Base
 
 
 class DecisionTree(Base, Tree):

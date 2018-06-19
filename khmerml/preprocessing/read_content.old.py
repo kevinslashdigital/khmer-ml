@@ -5,7 +5,7 @@
 import os
 from nltk.corpus import stopwords
 from nltk.stem.lancaster import LancasterStemmer
-from slashml.utils.file_util import FileUtil
+from khmerml.utils.file_util import FileUtil
 
 class ReadContent(object):
   """"

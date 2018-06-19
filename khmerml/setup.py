@@ -12,7 +12,7 @@ def configuration(parent_package='', top_path=None):
     if os.name == 'posix':
         libraries.append('m')
 
-    config = Configuration('slashml', parent_package, top_path)
+    config = Configuration('khmerml', parent_package, top_path)
 
     # submodules which do not have their own setup.py
     # we must manually add sub-submodules & tests

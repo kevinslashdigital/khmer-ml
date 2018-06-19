@@ -3,8 +3,8 @@
 """
 
 from collections import Counter
-from slashml.preprocessing.read_content import ReadContent
-from slashml.utils.file_util import FileUtil
+from khmerml.preprocessing.read_content import ReadContent
+from khmerml.utils.file_util import FileUtil
 
 class Preprocessing(object):
     """"
@@ -83,7 +83,7 @@ class Preprocessing(object):
         # Write to .csv fileself.kwargs['dataset']
         _directory_name = FileUtil.join_path(self.kwargs['dataset'] if ('passion' in self.kwargs) else 'data/dataset/matrix' )
         self.write_mat(_directory_name, feature_choice, threshold, mat)
-        #self.write_mat('D:/ML_text_classification/New folder/slashml_main/data/dataset/matrix/',\
+        #self.write_mat('D:/ML_text_classification/New folder/khmerml_main/data/dataset/matrix/',\
         #            feature_choice, threshold, mat)
 
         # returning feature matrix

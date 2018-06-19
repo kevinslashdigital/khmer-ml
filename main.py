@@ -2,9 +2,9 @@
     Factory class
 
 """
-from slashml.machine_learning import MachineLearning
-from slashml.preprocessing.preprocessing_data import Preprocessing
-from slashml.utils.file_util import FileUtil
+from khmerml.machine_learning import MachineLearning
+from khmerml.preprocessing.preprocessing_data import Preprocessing
+from khmerml.utils.file_util import FileUtil
 
 #
 if __name__ == "__main__":

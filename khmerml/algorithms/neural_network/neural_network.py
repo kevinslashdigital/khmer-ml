@@ -4,10 +4,10 @@
 import numpy
 from numpy import dot
 
-from slashml.utils.file_util import FileUtil
+from khmerml.utils.file_util import FileUtil
 
-from slashml.algorithms.base import Base
-from slashml.algorithms.neural_network.neural_network_base import NeuralNetworkBase
+from khmerml.algorithms.base import Base
+from khmerml.algorithms.neural_network.neural_network_base import NeuralNetworkBase
 
 
 class NeuralNetwork(Base, NeuralNetworkBase):
