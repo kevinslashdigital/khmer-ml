@@ -9,16 +9,15 @@ from khmerml.preprocessing.read_content import ReadContent
 from khmerml.utils.file_util import FileUtil
 from khmerml.utils.log import Log
 
-
 class Preprocessing(object):
   """"
-      This is the main class
+    This is the main class
   """
   def __init__(self, **kwargs):
     self.kwargs = kwargs
 
   def loading_data(self, folders, feature_choice, fq_type, threshold):
-    """ Loading the data from txt files in folders"""
+    """ Loading the data from txt files in folders """
     content = ReadContent(**self.kwargs)
     _words_articles, _all_words = content.load_content(folders)
     _temp_all_words = _all_words
@@ -26,16 +25,15 @@ class Preprocessing(object):
     _temp_all_words.append(threshold)
 
     if feature_choice == 'doc_freq':
-        _tfidf = self.doc_frequency(_words_articles, _all_words, feature_choice, fq_type, threshold)
+      _tfidf = self.doc_frequency(_words_articles, _all_words, feature_choice, fq_type, threshold)
     return _tfidf
 
   def doc_frequency(self, words_articles, all_words, feature_choice, fq_type, threshold):
     """
-        This method aims at feature selection based
-        on terms appearing in the articles.
-        Select only terms that appear in more threshold of articles
+      This method aims at feature selection based
+      on terms appearing in the articles.
+      Select only terms that appear in more threshold of articles
     """
-
     _preq_words = dict() # words prequency with class
     _frequency = dict() # words prequency
     _label_match = dict()
@@ -55,7 +53,6 @@ class Preprocessing(object):
             _preq_words[label][word] += 1
           else:
             _preq_words[label][word] = 1
-    # print(_frequency)
     print('label', _label_match)
 
     _tfidf_mat = []
@@ -70,9 +67,6 @@ class Preprocessing(object):
     _selected_words = list(set(_selected_words))
     _bag_of_words = self.compute_feature_matrix(_selected_words,\
                         words_articles, _label_match, feature_choice, threshold)
-    # _tfidf_mat.append(_bag_of_words)
-    # _tfidf_mat = self.merge_feature_vec(_tfidf_mat)
-
     # Save the dictionary for single document prediction
     FileUtil.save_pickle_dataset(((self.kwargs['bag_of_words'] if ('bag_of_words' in self.kwargs) else 'data/dataset/bag_of_words'))+\
                             '/'+feature_choice+'_'+str(threshold)+'.pickle', _selected_words)
@@ -80,21 +74,11 @@ class Preprocessing(object):
                             '/label_match.pickle', _label_match)
     return _bag_of_words
 
-  # def merge_feature_vec(self, feature_mat):
-  #   """Merging list of vectors"""
-  #   _feature_mat = []
-  #   for feature in feature_mat:
-  #     print('feature',feature)
-  #     for feature_vec in feature:
-  #       print('feature_vec', feature_vec)
-  #       _feature_mat.append(feature_vec)
-
-  #   print('_feature_mat',_feature_mat)
-  #   return _feature_mat
 
   def compute_feature_matrix(self, word_in_dic, text_in_articles, label_match, feature_choice, threshold):
-    """ Computing the feature matrix """
-
+    """
+      Computing the feature matrix
+    """
     mat = [] # feature matrix
     for label in text_in_articles.keys(): # each class
       for doc in text_in_articles[label]: # all words in each class
@@ -108,13 +92,14 @@ class Preprocessing(object):
 
     _directory_name = FileUtil.join_path(self.kwargs['dataset'] if ('passion' in self.kwargs) else 'data/dataset/matrix' )
     self.write_mat(_directory_name, feature_choice, threshold, mat)
-
     # returning feature matrix
     return mat
 
   def write_mat(self, path_to_file, feature_choice, threshold, feature_mat):
-    """ Method to write matrix into a file
     """
+      Method to write matrix into a file
+    """
+    FileUtil.create_folder(path_to_file)
     _mat_file = open(path_to_file + '/' + feature_choice+'_'+str(threshold)+'.csv', "w+")
 
     for _feature in feature_mat:
@@ -126,7 +111,8 @@ class Preprocessing(object):
     _mat_file.close()
 
   def loading_single_doc(self, document, feature_choice, threshold):
-    """ Loading single document for prediction
+    """
+      Loading single document for prediction
     """
 
     content = ReadContent(**self.kwargs)

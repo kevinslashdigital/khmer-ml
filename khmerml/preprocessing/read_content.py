@@ -18,9 +18,8 @@ class ReadContent(object):
 
   def load_content(self, dname):
     """ Below scripts are to get content from all files in each folders """
-
     _save_path = os.getcwd()
-    _directory_name = FileUtil.join_path(dname)
+    _directory_name =  FileUtil.join_path(dname)
     # Directory containing the files
     # path_to_dataset = FileUtil.dataset_path(config, filename)
     _words_all_articles = dict()
