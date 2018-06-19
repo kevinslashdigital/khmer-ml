@@ -16,3 +16,4 @@ config/env.json
 *.pickle
 *.csv
 *.model
+*.DS_Store

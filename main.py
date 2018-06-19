@@ -19,16 +19,17 @@ if __name__ == "__main__":
     # with open('config/env.sample.json') as json_data:
     #   config = json.load(json_data)
     # preposessing
-    # prepro = Preprocessing(**config)
-    # dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 25)
-    
+    prepro = Preprocessing(**config)
+    #dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 'top', 25)
+
 
     ml = MachineLearning(**config)
 
     #load dataset from file (feature data)
-    filename = "doc_freq_35.csv"
+    filename = "doc_freq_25.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
     dataset_sample = FileUtil.load_csv(dataset_path, use_numpy=True)
+    dataset_sample = prepro.normalize_dataset(dataset_sample)
 
     # dataset -> train, test
     # training_set, test_set = ml.split_dataset(dataset_sample, 5)
