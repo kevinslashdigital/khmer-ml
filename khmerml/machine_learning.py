@@ -124,8 +124,8 @@ class MachineLearning(object):
     return round((correct / float(len(test_set))) * 100.0, 2)
 
 
-  def to_label(self, label_values):
-    label_load = FileUtil.load_pickle('data/dataset/bag_of_words/label_match.pickle')
+  def to_label(self,label_values, file):
+    label_load = FileUtil.load_pickle(file)
     result = []
     for label_value in label_values:
       for label, value in label_load.items():

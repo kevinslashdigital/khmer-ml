@@ -11,9 +11,9 @@ if __name__ == "__main__":
   config = {
     'root': '/Users/lion/Documents/py-workspare/openml/slash-ml',
     'text_dir': 'data/dataset/text',
-    'dataset': 'data/dataset/matrix',
-    'bag_of_words': 'data/dataset/bag_of_words',
-    'train_model': 'data/dataset/model/train.model',
+    'dataset': 'data/matrix',
+    'bag_of_words': 'data/bag_of_words',
+    'train_model': 'data/model/train.model',
     # 'mode': 'unicode'
   }
 
@@ -39,9 +39,9 @@ if __name__ == "__main__":
   # split dataset -> train set, test set
   training_set, test_set = ml.split_dataset(dataset_sample, 5, use_numpy = True)
   # choose your algorithm
-  #algo = ml.NiaveBayes()
-  algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=30, min_criterion=0.05)
-  # algo = ml.NeuralNetwork(hidden_layer_sizes=(250, 100), learning_rate=0.012, momentum=0.5, random_state=0, max_iter=200, activation='tanh')
+  # algo = ml.NiaveBayes()
+  # algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=30, min_criterion=0.05)
+  algo = ml.NeuralNetwork(hidden_layer_sizes=(250, 100), learning_rate=0.012, momentum=0.5, random_state=0, max_iter=200, activation='tanh')
   # train or load model
   model = algo.train(training_set)
   # model = algo.load_model()
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
   print('training_set', len(training_set))
   print('predictions, prediction_details', predictions, acc)
-  print('label', ml.to_label(predictions))
+  print('label', ml.to_label(predictions, 'data/bag_of_words/label_match.pickle'))
 
   """
     end

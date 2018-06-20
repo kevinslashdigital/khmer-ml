@@ -1,41 +1,77 @@
-slash-ml
+khmer-ml
 ============
 
-slash-ml is a Python module for machine learning.
+khmer-ml is a Python module for machine learning.
+
 
 Installation
-------------
+============
 
-Dependencies
-~~~~~~~~~~~~
-
-slash-ml requires:
-
+Manually Install
+----------------
 - Python (>= 3.4)
 - NumPy (>= 1.14.2)
-- nltk (>= 3.2.4) [https://www.nltk.org/data.html]
-    then install stopwords
+- nltk (>= 3.2.4)
 ~~~~~~~~~~~~~~~~~
 
 User Installation
+----------------
+- python3 setup.py install --record files.txt
+- note setup.py that located in khmer-ml root folder
 ~~~~~~~~~~~~~~~~~
 
-to run environment setup
-python3 setup.py install
 
-If you already have a working installation of numpy and nltk, from terminal to execute the following command to install slash-ml
+Development
+===========
 
-    python setup.py install --record files.txt
+Pytest Installatioin
+--------------------
+- https://docs.pytest.org/en/latest/getting-started.html or
+- pip3 install -U pytest ( or sudo -H pip install pytest --ignore-installed six)
+- To run pytest with python3 >>> python3 -m pytest
+~~~~~~~~~~~~~~~~~
 
+Editor
+------
+- Visual Code recommended (https://code.visualstudio.com/)
+- plugins (recommended)
+  * Python
+  * Pylint
+  * EditorConfig
+  * GitLens
+  * Sublime Text Keymap (Sublime fan recommended)
+~~~~~~~~~~~~~~~~~
 
+Usage
+===========
 
+Run from main file
+------------------
+- python3 main.py (note: main.py is located in khmer-ml root folder)
+~~~~~~~~~~~~~~~~~
 
-    sudo -H  /usr/local/bin/python3 -m pip install -U pylint --user
+Run from example
+----------------
+- Chatbot Example (note located folder to khmer-ml)
+  * To Train: python3 examples/chatbot/main.py --mode train
+  * To Run Chatbot: python3 examples/chatbot/main.py --mode chat
+~~~~~~~~~~~~~~~~~
 
-    Install pytest
-    --------------
-    pip3 install -U pytest or (sudo -H pip install pytest --ignore-installed six)
-    To run pytest with python3 >>> python3 -m pytest
+Help and Support
+================
 
-  # with open('config/env.sample.json') as json_data:
-  #   config = json.load(json_data)
+Documentation
+-------------
+* HTML documentation (stable release): https://khmerml.ai
+* HTML documentation (development version): https://khmerml.ai/dev/
+* FAQ: https://khmerml.ai/faq
+~~~~~~~~~~~~~~~~~
+
+Communication
+-------------
+* Subscribe khmerml: https://khmerml.ai/subscribe
+* Slack channel
+* Stack Overflow
+* Website: https://khmerml.ai
+~~~~~~~~~~~~~~~~~
+

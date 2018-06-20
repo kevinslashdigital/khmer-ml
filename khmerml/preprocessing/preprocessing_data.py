@@ -68,10 +68,10 @@ class Preprocessing(object):
     _bag_of_words = self.compute_feature_matrix(_selected_words,\
                         words_articles, _label_match, feature_choice, threshold)
     # Save the dictionary for single document prediction
-    FileUtil.save_pickle_dataset(((self.kwargs['bag_of_words'] if ('bag_of_words' in self.kwargs) else 'data/dataset/bag_of_words'))+\
-                            '/'+feature_choice+'_'+str(threshold)+'.pickle', _selected_words)
-    FileUtil.save_pickle_dataset('data/dataset/bag_of_words'+\
-                            '/label_match.pickle', _label_match)
+    path = self.kwargs['bag_of_words'] if ('bag_of_words' in self.kwargs) else 'data/bag_of_words'
+    FileUtil.create_folder(path)
+    FileUtil.save_pickle_dataset(path + '/'+feature_choice+'_'+str(threshold)+'.pickle', _selected_words)
+    FileUtil.save_pickle_dataset(path + '/label_match.pickle', _label_match)
     return _bag_of_words
 
 
@@ -90,7 +90,8 @@ class Preprocessing(object):
         row.append(label_match[label]) # adding label
         mat.append(row)
 
-    _directory_name = FileUtil.join_path(self.kwargs['dataset'] if ('passion' in self.kwargs) else 'data/dataset/matrix' )
+    _directory_name = FileUtil.join_path(self.kwargs['dataset'] if ('passion' in self.kwargs) else 'data/matrix' )
+    FileUtil.create_folder(_directory_name)
     self.write_mat(_directory_name, feature_choice, threshold, mat)
     # returning feature matrix
     return mat
@@ -114,10 +115,9 @@ class Preprocessing(object):
     """
       Loading single document for prediction
     """
-
     content = ReadContent(**self.kwargs)
     if feature_choice == 'doc_freq':
-      dic_load = FileUtil.load_pickle(self.kwargs['bag_of_words'] if 'bag_of_words' in self.kwargs else 'data/dataset/bag_of_words' +\
+      dic_load = FileUtil.load_pickle((self.kwargs['bag_of_words'] if ('bag_of_words' in self.kwargs) else 'data/bag_of_words') + \
                                       '/'+feature_choice+'_'+str(threshold)+'.pickle')
 
     document = content.remove_stopword(document)
@@ -125,8 +125,9 @@ class Preprocessing(object):
     words = Counter(article)# Count the frequency of each term
     row = []
     for word in dic_load:\
-      # each term or feature in article to be considered
+      # each term or feature in article to be consider
       row.append(words[word])# Adding to row
+    row.append(0)
     return row
 
   def fq_all(self,frequency, threshold):
