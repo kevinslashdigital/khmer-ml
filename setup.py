@@ -5,9 +5,9 @@
 from setuptools import setup
 
 default_setup = dict(
-    name='KhmerML Dependenies',
+    name='khmerml_dependencies',
     description='https://github.com/numpy/numpy/issues/2434',
-    provides=['KhmerML Dependenies'],
+    provides=['khmerml_dependencies'],
     install_requires=['numpy==1.14.5', 'nltk>=3.2.4'],
     requires=['numpy', 'nltk'],
     license='GPLv3',
