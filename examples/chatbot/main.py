@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
   config = {
     'root': '/Data/Projects/ML/khmerml/slash-ml',
-    'text_dir': 'data/dataset/text',
+    'text_dir': 'data/dataset/chatbot',
     'dataset': 'data/matrix',
     'bag_of_words': 'data/bag_of_words',
     'train_model': 'data/model/train.model',
@@ -31,22 +31,20 @@ if __name__ == "__main__":
   ml = MachineLearning(**config)
   # choose your algorithm
   algo = ml.NiaveBayes()
-  algo = ml.NeuralNetwork(hidden_layer_sizes=(250, 100), learning_rate=0.012, momentum=0.5, random_state=0, max_iter=200, activation='tanh')
+  # algo = ml.NeuralNetwork(hidden_layer_sizes=(250, 100), learning_rate=0.012, momentum=0.5, random_state=0, max_iter=200, activation='tanh')
   prepro = Preprocessing(**config)
   # -- mode
   if args.mode == 'train' :
     # preposessing
-    dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 'top', 25)
+    dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 'all', 1)
     #load dataset from file (feature data)
-    filename = "doc_freq_25.csv"
+    filename = "doc_freq_1.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
-    dataset_sample = FileUtil.load_csv(dataset_path, use_numpy=True)
-    dataset_sample = prepro.normalize_dataset(dataset_sample)
+    dataset_sample = FileUtil.load_csv(dataset_path, use_numpy=False)
 
     ml = MachineLearning(**config)
     # split dataset -> train set, test set
-    training_set, test_set = ml.split_dataset(dataset_sample, 5, use_numpy = True)
-    algo = ml.NeuralNetwork(hidden_layer_sizes=(250, 100), learning_rate=0.012, momentum=0.5, random_state=0, max_iter=200, activation='tanh')
+    training_set, test_set = ml.split_dataset(dataset_sample, 1, use_numpy = False)
     # train
     model = algo.train(training_set)
 
@@ -66,7 +64,7 @@ if __name__ == "__main__":
     while True:
       question 	= input('')
       # preprocess
-      mat = prepro.loading_single_doc(question, 'doc_freq', 25)
+      mat = prepro.loading_single_doc(question, 'doc_freq', 1)
       prediction = algo.predict(model, [mat])
       print('prediction', ml.to_label(prediction, 'data/bag_of_words/label_match.pickle'))
       # print(Bcolors().OKGREEN + 'You :' + Bcolors().ENDC,question)

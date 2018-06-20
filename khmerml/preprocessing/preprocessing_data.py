@@ -124,7 +124,7 @@ class Preprocessing(object):
     article = content.stemming_words(document)
     words = Counter(article)# Count the frequency of each term
     row = []
-    for word in dic_load:\
+    for word in dic_load:
       # each term or feature in article to be consider
       row.append(words[word])# Adding to row
     row.append(0)
