@@ -14,11 +14,14 @@ slash-ml requires:
 - Python (>= 3.4)
 - NumPy (>= 1.14.2)
 - nltk (>= 3.2.4) [https://www.nltk.org/data.html]
-    => then install stopwords
+    then install stopwords
 ~~~~~~~~~~~~~~~~~
 
 User Installation
 ~~~~~~~~~~~~~~~~~
+
+to run environment setup
+python3 setup.py install
 
 If you already have a working installation of numpy and nltk, from terminal to execute the following command to install slash-ml
 
