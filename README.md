@@ -36,3 +36,6 @@ If you already have a working installation of numpy and nltk, from terminal to e
     --------------
     pip3 install -U pytest or (sudo -H pip install pytest --ignore-installed six)
     To run pytest with python3 >>> python3 -m pytest
+
+  # with open('config/env.sample.json') as json_data:
+  #   config = json.load(json_data)
