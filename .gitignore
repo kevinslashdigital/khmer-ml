@@ -17,3 +17,4 @@ config/env.json
 *.csv
 *.model
 *.DS_Store
+dataset/
