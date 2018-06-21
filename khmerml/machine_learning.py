@@ -55,7 +55,7 @@ class MachineLearning(object):
       dataset_by_class[vector[-1]].append(vector)
     return dataset_by_class
 
-  def split_dataset(self, dataset, sample_by_class, use_numpy=False):
+  def split_dataset(self, dataset, sample_by_class, use_numpy=True):
     """
       Split data set for training and testing
     """

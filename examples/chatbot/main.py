@@ -5,7 +5,7 @@
 import sys, os
 import argparse
 
-syspath = 'slash-ml'
+syspath = 'khmer-ml'
 sys.path.append(os.path.abspath(os.path.join('..', syspath)))
 
 from khmerml.machine_learning import MachineLearning
@@ -31,7 +31,6 @@ if __name__ == "__main__":
   ml = MachineLearning(**config)
   # choose your algorithm
   algo = ml.NiaveBayes()
-  # algo = ml.NeuralNetwork(hidden_layer_sizes=(250, 100), learning_rate=0.012, momentum=0.5, random_state=0, max_iter=200, activation='tanh')
   prepro = Preprocessing(**config)
   # -- mode
   if args.mode == 'train' :
@@ -40,11 +39,11 @@ if __name__ == "__main__":
     #load dataset from file (feature data)
     filename = "doc_freq_1.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
-    dataset_sample = FileUtil.load_csv(dataset_path, use_numpy=False)
+    dataset_sample = FileUtil.load_csv(dataset_path)
 
     ml = MachineLearning(**config)
     # split dataset -> train set, test set
-    training_set, test_set = ml.split_dataset(dataset_sample, 1, use_numpy = False)
+    training_set, test_set = ml.split_dataset(dataset_sample, 1)
     # train
     model = algo.train(training_set)
 

@@ -26,7 +26,7 @@ class FileUtil(object):
     return _data_matrix
 
   @staticmethod
-  def load_csv(filename, use_numpy=False):
+  def load_csv(filename, use_numpy=True):
     """
       Read data from csv file using python or numpy lib
     """

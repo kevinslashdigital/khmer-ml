@@ -1,4 +1,4 @@
-
+import numpy as np
 import math
 from decimal import Decimal
 from functools import reduce
@@ -14,74 +14,89 @@ class BayesBase(object):
     self._train_model = {}
     self.predictions = []
 
-  def count_classes_occurrence(self, dataset):
+
+  def count_classes_occurrence(self, X_train):
     """
-      Count class occurences from list data set
-      by class
+      Count class occurences from list data set by class
     """
-    classes_occurrence = {}
-    for _, label in enumerate(dataset):
-        classes_occurrence[label] = len(dataset[label])
+
+    _, classes_occurrence = np.unique(X_train, return_counts=True)
     return classes_occurrence
 
-  def calculate_class_priori(self, dataset_classes):
-    """
-      Calculate occurences depending on occurences
-    """
-    total_frequency = sum(dataset_classes.values())
-    probabilities = {}
-    for label, value in dataset_classes.items():
-        probabilities[label] = value / total_frequency
 
-    return probabilities
-
-
-  def calculate_priori(self, dataset):
+  def calculate_priori(self, X_train):
     """
       Calculate Priori Probability
     """
-    classes_occurrence = self.count_classes_occurrence(dataset)
-    prioris = self.calculate_class_priori(classes_occurrence)
+
+    # Count class occurences from X_train
+    classes, classes_occurrence = np.unique(X_train[:, -1], return_counts=True)
+    total_occurences = np.sum(classes_occurrence)
+
+    # Calculate probability per class
+    prioris = {}
+    for index, label in enumerate(classes):
+      prioris[label] = classes_occurrence[index] / total_occurences
+
     return prioris
 
 
-  def calculate_likelihood(self, dataset):
+  def calculate_likelihood(self, X_train):
     """
       Calculate likelihoods
     """
-    # zip feature by class
-    dataset_by_class = dict(dataset)
+
+    # Unique class
+    unique_class = np.unique(X_train[:,-1])
+
     likelihoods = {}
-    for class_key, subset in dataset_by_class.items():
-      zip_feature = zip(*subset)
-      features = list(map(sum, zip_feature))
-      del features[-1]
-      total_unique_feat = len(features)
-      total_freq = sum(features)
+    for _, label in enumerate(unique_class):
+
+      # Find all rows where its label equal to search label
+      X_subset = X_train[X_train[:, -1] == label]
+      # Delete lable from dataset
+      X_subset = np.delete(X_subset, -1, 1)
+      # Count total frequency of all features
+      total_frequency = np.sum(X_subset)
+      # Count number of features
+      total_features = X_subset.shape[1]
+
+      # Count number of frequency of each and every feature
+      feature_fequency = [np.sum(feature) for feature in X_subset.T]
       # Calculate likelihood of each feature
-      probabilities = [(1+ f_count)/(total_unique_feat + total_freq) \
-                      for f_count in features]
-      # Store likelihood by class
-      likelihoods[class_key] = probabilities
+      probabilities = [(1+ f_count)/(total_features + total_frequency) \
+                  for f_count in feature_fequency]
+
+      # Push likelihood to list
+      likelihoods[label] = probabilities
 
     return likelihoods
 
-  def calculate_posteriori(self, train_model, test_vector):
+  def calculate_posteriori(self, model, test_vector):
     """
       Calculate the porbability of all classes
       one class at a time.
     """
-    best_posteriori, label = -1, None
-    for class_index, priori_likelihood in train_model.items():
+    best_posteriori, best_label = -1, None
+
+    for label, priori_likelihood in model.items():
+
+      # Get priori (index=0)
       priori = Decimal(priori_likelihood[0])
+      # Get likelihood (index=1)
       likelihood_feature = priori_likelihood[1]
+
       _likelihoods = list(map(lambda x, y: math.pow(x, y), \
                       likelihood_feature, test_vector))
 
       likelihood = reduce(lambda x, y: Decimal(x) * Decimal(y), _likelihoods)
-      posteriori = priori * likelihood
-      if label is None or posteriori > best_posteriori:
-        best_posteriori = posteriori
-        label = class_index
-    return best_posteriori, label
 
+      # Calculate posteriori
+      posteriori = priori * likelihood
+
+      # Check for the best posteriori
+      if best_label is None or posteriori > best_posteriori:
+        best_posteriori = posteriori
+        best_label = label
+
+    return best_posteriori, best_label
