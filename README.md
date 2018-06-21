@@ -61,7 +61,7 @@ Run from example
 - Chatbot Example (note located folder to khmer-ml)
   * To Train: python3 examples/chatbot/main.py --mode train
   * To Run Chatbot: python3 examples/chatbot/main.py --mode chat
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 Authors
 ================
