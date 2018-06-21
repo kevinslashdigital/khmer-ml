@@ -30,6 +30,14 @@ User Installation
 Development
 ===========
 
+Dataset
+-------
+~~~~~~~~~~~~~~~~~
+- download dataset from https://drive.google.com/drive/folders/10K17uk57NLNOv5tK_jsTx_fGwrbZrcV-?usp=sharing
+- create dataset folder
+- extract and put in data/dataset folder
+~~~~~~~~~~~~~~~~~
+
 Pytest Installatioin
 --------------------
 ~~~~~~~~~~~~~~~~~

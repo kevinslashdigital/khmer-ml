@@ -9,7 +9,6 @@ from khmerml.utils.file_util import FileUtil
 if __name__ == "__main__":
 
   config = {
-    'root': '/Users/lion/Documents/py-workspare/openml/slash-ml',
     'text_dir': 'data/dataset/text',
     'dataset': 'data/matrix',
     'bag_of_words': 'data/bag_of_words',

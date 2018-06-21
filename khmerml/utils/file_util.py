@@ -95,7 +95,6 @@ class FileUtil(object):
       The pickle module implements binary protocols
       for serializing and de-serializing a Python object structure.
     """
-    FileUtil.create_folder(os.getcwd()+'/data/dataset/bag_of_words')
     path_to_pickle = os.path.join(os.getcwd(), pickle_filename)
     with open(path_to_pickle, 'wb') as handle:
       pickle.dump(dataset, handle, protocol=pickle.HIGHEST_PROTOCOL)
