@@ -18,3 +18,5 @@ config/env.json
 *.model
 *.DS_Store
 dataset/
+khmerml_dependencies*
+khmerml_dependencies.egg-info/
