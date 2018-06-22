@@ -11,6 +11,17 @@ sys.path.append(os.path.abspath(os.path.join('..', syspath)))
 from khmerml.machine_learning import MachineLearning
 from khmerml.preprocessing.preprocessing_data import Preprocessing
 from khmerml.utils.file_util import FileUtil
+from khmerml.utils.bg_colors import Bgcolors
+
+def get_answer(label):
+  answer = 'sorry i don\'t understand what you are saying, tell me more!'
+  if label[0] == 'greetings':
+    answer = 'I am chatbot, nice to know you.'
+  elif label[0] == 'goodbye':
+    answer = 'thanks for chating with me.'
+  elif label[0] == 'thanks':
+    answer = 'thanks you so much, see you again soon.'
+  return answer
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
@@ -20,7 +31,6 @@ if __name__ == "__main__":
   args = parser.parse_args()
 
   config = {
-    'root': '/Data/Projects/ML/khmerml/slash-ml',
     'text_dir': 'data/dataset/chatbot',
     'dataset': 'data/matrix',
     'bag_of_words': 'data/bag_of_words',
@@ -54,7 +64,7 @@ if __name__ == "__main__":
 
     print('predictions, prediction_details', predictions, acc)
     print('label', ml.to_label(predictions,'data/bag_of_words/label_match.pickle'))
-    print('Chatbot train completed!')
+    print('==== Chatbot train completed! ====')
 
   elif args.mode == 'chat':
     print ("Start chatting with the bot !")
@@ -65,10 +75,9 @@ if __name__ == "__main__":
       # preprocess
       mat = prepro.loading_single_doc(question, 'doc_freq', 1)
       prediction = algo.predict(model, [mat])
-      print('prediction', ml.to_label(prediction, 'data/bag_of_words/label_match.pickle'))
-      # print(Bcolors().OKGREEN + 'You :' + Bcolors().ENDC,question)
-      # print(Bcolors().OKBLUE 	+ 'Bot :' + Bcolors().ENDC,answer)
-      # # save all chat to db
-      # data = 'sessionid;;'+sessionid +';;question;;'+ question+ ';;response;;' + answer
-      # save_conversation.save(data)
+      label = ml.to_label(prediction, 'data/bag_of_words/label_match.pickle')
+      answer = get_answer(label)
+      print('prediction', label)
+      print(Bgcolors.OKGREEN + 'You :' + Bgcolors.ENDC,question)
+      print(Bgcolors.OKBLUE 	+ 'Bot :' + Bgcolors.ENDC,answer)
 
