@@ -24,18 +24,19 @@ class ReadContent(object):
     # path_to_dataset = FileUtil.dataset_path(config, filename)
     _words_all_articles = dict()
     for folder in os.listdir(_directory_name):
-      _words_each_articles = []   # List for storing all words in articles
-      for files in os.listdir(_directory_name+'/'+folder):
-        if files.endswith(".txt"):
-          _read_text = open(_directory_name+'/'+folder+'/'+files, "rU",\
-                          encoding="utf-8", errors="surrogateescape")
-          # Open file for reading
-          _lines = _read_text.read()# Read content from file
-          _new_words = self.remove_stopword(_lines)
-          _new_words = self.stemming_words(_new_words)
-          _words_each_articles.append(_new_words)# Adding list to list
-      _words_all_articles[folder.lower()] = _words_each_articles
-      os.chdir(_save_path)  # Moving directory to the saved path
+      if folder is not '.DS_Store':
+        _words_each_articles = []   # List for storing all words in articles
+        for files in os.listdir(_directory_name+'/'+folder):
+          if files.endswith(".txt"):
+            _read_text = open(_directory_name+'/'+folder+'/'+files, "rU",\
+                            encoding="utf-8", errors="surrogateescape")
+            # Open file for reading
+            _lines = _read_text.read()# Read content from file
+            _new_words = self.remove_stopword(_lines)
+            _new_words = self.stemming_words(_new_words)
+            _words_each_articles.append(_new_words)# Adding list to list
+        _words_all_articles[folder.lower()] = _words_each_articles
+        os.chdir(_save_path)  # Moving directory to the saved path
     _all_words = self.merge_list_content(_words_all_articles)
 
     return _words_all_articles, _all_words

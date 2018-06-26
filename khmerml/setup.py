@@ -14,10 +14,13 @@ def configuration(parent_package='', top_path=None):
   config = Configuration('khmerml', parent_package, top_path)
   # submodules which do not have their own setup.py
   # we must manually add sub-submodules & tests
-  # config.add_subpackage('examples')
   config.add_subpackage('utils')
-  config.add_subpackage('naive_bayes')
   config.add_subpackage('preprocessing')
+  config.add_subpackage('algorithms')
+  config.add_subpackage('algorithms/bayes')
+  config.add_subpackage('algorithms/decisiontree')
+  config.add_subpackage('algorithms/neural_network')
+
   return config
 
 if __name__ == '__main__':
