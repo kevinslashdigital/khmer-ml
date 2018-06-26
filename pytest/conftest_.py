@@ -18,5 +18,7 @@ def pytest_collection_modifyitems(config, items):
 
 @pytest.fixture(scope="module")
 def smtp():
-    import smtplib
-    return smtplib.SMTP("smtp.gmail.com", 587, timeout=5)
+  """ Test SMTP
+  """
+  import smtplib
+  return smtplib.SMTP("smtp.gmail.com", 587, timeout=5)

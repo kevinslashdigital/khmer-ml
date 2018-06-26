@@ -9,8 +9,8 @@ khmerML also is a way to encourage Cambodian tech engineers to start learning Ma
 Installation
 ============
 
-Manually Install
-----------------
+Manual Installation
+-------------------
 - Python (>= 3.4)
 - NumPy (>= 1.14.2)
 - nltk (>= 3.2.4)

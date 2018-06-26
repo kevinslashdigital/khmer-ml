@@ -69,7 +69,7 @@ class NaiveBayes(Base, BayesBase):
     """
 
     predictions = []
-    X_test = np.delete(X_test, -1, 1)
+    X_test = np.delete(X_test, -1, axis=1)
 
     for index in range(X_test.shape[0]):
     #for subset in test_sample:
