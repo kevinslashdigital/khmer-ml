@@ -191,7 +191,13 @@ class FileUtil(object):
           print("Error: %s - %s." % (error.filename, error.strerror))
       else:
         try:
-          shutil.rmtree(path, ignore_errors, onerror)
+          # Remove sub-directory from given path
+          # Moving directory to the saved path
+          _save_path = os.getcwd()
+          os.chdir(_save_path)
+          files = os.listdir(path)
+          for file in files:
+            shutil.rmtree(os.path.join(path, file), ignore_errors, onerror)
         except OSError as error:
           print('error %s' % error)
           return False
