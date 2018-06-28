@@ -53,7 +53,7 @@ class DecisionTree(Base, Tree):
     X_train = np.delete(dataset, -1, 1)
     # Start constructing tree
     self.build(X_train, y_train, self.criterion)
-    self.train_model = self.build(X_train, y_train, self.criterion)
+    self.train_model = self
     self.save_model(self.train_model)
     return self.train_model
 
@@ -65,4 +65,7 @@ class DecisionTree(Base, Tree):
     # Get train and test label
     # Delete last column (label) from array
     X_test = np.delete(test_dataset, -1, 1)
+
+    # The object becomes the model tree that was built in training step
+    self = model
     return np.array([self._predict(feature) for feature in X_test])
