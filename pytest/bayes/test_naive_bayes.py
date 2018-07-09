@@ -55,61 +55,14 @@ class TestNaiveBayes:
   }
 
 
-  def save_model(self, model):
-    """
-      Load train model from file
-    """
-
-    # Save model
-    naive_bayes = NaiveBayes(**self.CONFIG)
-    naive_bayes.save_model(model)
-
-
-  def test_load_model(self):
-    """
-      Load train model from file
-    """
-    # Save model
-    naive_bayes = NaiveBayes(**self.CONFIG)
-    try:
-      train_model = naive_bayes.load_model()
-    except
-
-
-    # Expected output model
-    expected_train_model = {}
-    expected_train_model[1.0] = [0.5, [0.47432024169184295, 0.3232628398791541, 0.15407854984894262, 0.04833836858006044]]
-    expected_train_model[2.0] = [0.5, [0.394919168591224, 0.20092378752886833, 0.2909930715935335, 0.11316397228637413]]
-
-    assert np.array_equal(train_model, expected_train_model)
-
-
   def test_train(self, X_train):
     """
       Train model
     """
 
-    # Expected prioris
-    prioris = {}
-    prioris[1.0] = 0.5
-    prioris[2.0] = 0.5
-
-    # Expected liklihoods
-    likelihoods = {}
-    likelihoods[1.0] = [0.47432024169184295, 0.3232628398791541, 0.15407854984894262, 0.04833836858006044]
-    likelihoods[2.0] = [0.394919168591224, 0.20092378752886833, 0.2909930715935335, 0.11316397228637413]
-
-    train_model = {}
-    for label, likelihood in likelihoods.items():
-
-      # Get priori for corresponding class
-      priori = prioris[label]
-      if label not in train_model:
-        train_model[label] = []
-
-      # Push priori and likelihood of each label to stack
-      train_model[label].append(priori)
-      train_model[label].append(likelihood)
+    # Train model and Save the model to file
+    naive_bayes = NaiveBayes(**self.CONFIG)
+    train_model = naive_bayes.train(X_train)
 
     # Expected output model
     expected_train_model = {}
@@ -124,7 +77,7 @@ class TestNaiveBayes:
       Make prediction
     """
 
-    # Count class occurences from X_train
+    # Make prediction based on trained model
     naive_bayes = NaiveBayes(**self.CONFIG)
     predictions = naive_bayes.predict(model, X_test)
 
@@ -132,3 +85,22 @@ class TestNaiveBayes:
     expected_predictions = [1.0]
 
     assert np.array_equal(predictions, expected_predictions)
+
+
+  def test_load_model(self):
+    """
+      Load train model from file
+    """
+    # Save model
+    naive_bayes = NaiveBayes(**self.CONFIG)
+    try:
+      train_model = naive_bayes.load_model()
+    except RuntimeError as error:
+      print(error)
+    else:
+      # Expected output model
+      expected_train_model = {}
+      expected_train_model[1.0] = [0.5, [0.47432024169184295, 0.3232628398791541, 0.15407854984894262, 0.04833836858006044]]
+      expected_train_model[2.0] = [0.5, [0.394919168591224, 0.20092378752886833, 0.2909930715935335, 0.11316397228637413]]
+
+      assert np.array_equal(train_model, expected_train_model)

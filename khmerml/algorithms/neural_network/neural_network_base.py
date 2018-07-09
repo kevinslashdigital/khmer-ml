@@ -49,12 +49,16 @@ class NeuralNetworkBase(object):
       if n_inputs == 0:
           n_inputs = n_features
 
-      # Create matrix of
-      # n_inputs_neuron as row and n_neurons as column
-      # Random value in interal [0, 1)
-
-      # create randomized weights
+      # Create matrix of randomized weights of n_inputs_neuron as row and n_neurons as column
       # use scheme from Efficient Backprop by LeCun 1998 to initialize weights for hidden layer
+      # Creates an array of specified shape and fills it with random values
+      # which is actually a part of Normal(Gaussian)Distribution.
+      # loc   : [float or array_like] Mean of the distribution.
+      # scale : [float or array_like] Standard  Derivation of the distribution.
+      # size  : [int or int tuples].
+      # Output shape given as (m, n, k) then m*n*k samples are drawn.
+      # If size is None(by default), then a single value is returned.
+      # Random value in interal (-input_range, input_range)
       input_range = 1.0 / n_inputs ** (1/2)
       synaptic_weight = np.random.normal(loc=0, scale=input_range, size=(n_inputs, n_output_nodes))
 
@@ -71,8 +75,9 @@ class NeuralNetworkBase(object):
       synaptic_weight = np.array(synaptic_weight)
       layers.append(synaptic_weight)
 
-    # Add layer to list
-    # Output layer
+    # Add Output layer to list
+    # Draw samples from a uniform distribution.
+    # Samples are uniformly distributed over the half-open interval [low=0.0, high=1.0)
     synaptic_weight = np.random.uniform(size=(n_inputs, n_labels)) / np.sqrt(n_inputs)
     layers.append(synaptic_weight)
 
