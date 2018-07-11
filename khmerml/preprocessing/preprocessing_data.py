@@ -90,7 +90,7 @@ class Preprocessing(object):
         row.append(label_match[label]) # adding label
         mat.append(row)
 
-    _directory_name = FileUtil.join_path(self.kwargs['dataset'] if ('passion' in self.kwargs) else 'data/matrix' )
+    _directory_name = FileUtil.join_path(self.kwargs['dataset'] if ('dataset' in self.kwargs) else 'data/matrix' )
     FileUtil.create_folder(_directory_name)
     self.write_mat(_directory_name, feature_choice, threshold, mat)
     # returning feature matrix

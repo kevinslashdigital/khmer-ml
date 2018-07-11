@@ -207,6 +207,20 @@ class FileUtil(object):
     return True
 
   @staticmethod
+  def make_dir(path):
+    """ Recursive directory creation function.
+    """
+
+    ## check if path is not exists on disk
+    if not os.path.exists(path):
+      try:
+          os.makedirs(path, mode=0o755, exist_ok=False)
+      except OSError as error:
+          print("Error: %s - %s." % (error.filename, error.strerror))
+      else:
+        return False
+
+  @staticmethod
   def print(*args):
     try:
       print(args)
