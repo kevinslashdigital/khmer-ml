@@ -156,7 +156,7 @@ class NeuralNetworkBase(object):
       value from logistic function.
       Parameters
       ----------
-      Z : {array-like, sparse matrix}, shape (n_samples, n_features)
+      X : {array-like, sparse matrix}, shape (n_samples, n_features)
           The data which was output from the logistic activation function during
           the forward pass.
       delta : {array-like}, shape (n_samples, n_features)

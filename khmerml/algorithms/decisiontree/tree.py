@@ -44,7 +44,7 @@ class Tree(object):
       self.label = max([(c, len(target[target == c])) for c in np.unique(target)],\
           key=lambda x: x[1])[0]
     else:
-        self.label = np.mean(target)
+      self.label = int(np.mean(target))
     # Determine node impurity
     impurity_node = self._calc_impurity(criterion, target)
     # Every Attribute, determind the best information gain/gini
@@ -86,6 +86,7 @@ class Tree(object):
       if not feature_level.any():
         return best_gain, best_feature, best_threshold
       if feature_level.shape[0] < 2:
+        # [:-1] first all but the last elements of the array
         thresholds = (feature_level[:-1]) / 2.0
       else:
         thresholds = (feature_level[:-1] + feature_level[1:]) / 2.0
