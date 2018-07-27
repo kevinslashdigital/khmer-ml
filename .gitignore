@@ -1,4 +1,5 @@
 build
+dist
 files.txt
 log_file.txt
 preprocessing/__pycache__ utils/__pycache__
