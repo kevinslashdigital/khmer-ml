@@ -5,14 +5,15 @@
 from setuptools import setup
 
 default_setup = dict(
-    name='khmerml_dependencies',
+    name='khmerml',
+    version='0.0.1',
     description='https://github.com/numpy/numpy/issues/2434',
-    provides=['khmerml_dependencies'],
+    provides=['khmerml'],
     install_requires=['numpy==1.14.5', 'nltk>=3.2.4'],
     requires=['numpy', 'nltk'],
     license='GPLv3',
     author='KhmerML',
-    author_email='khmerml@aicambodia.com',
+    author_email='kevin@slash.co',
 )
 
 setup(**default_setup)

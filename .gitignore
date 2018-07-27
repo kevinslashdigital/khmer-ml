@@ -24,4 +24,4 @@ pytest/
 examples/
 data/
 config/
-
+*.egg-info
