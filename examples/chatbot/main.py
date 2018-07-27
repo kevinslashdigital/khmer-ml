@@ -35,7 +35,7 @@ if __name__ == "__main__":
     'dataset': 'data/matrix',
     'bag_of_words': 'data/bag_of_words',
     'train_model': 'data/model/train.model',
-    # 'mode': 'unicode'
+    'is_unicode': 'false'
   }
 
   ml = MachineLearning(**config)

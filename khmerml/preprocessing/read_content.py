@@ -32,7 +32,7 @@ class ReadContent(object):
           # Open file for reading
           _lines = _read_text.read()# Read content from file
           _new_words = []
-          if self.kwargs['mode'] == 'unicode' :
+          if self.kwargs['is_unicode'] and self.kwargs['is_unicode'] == 'true' :
             words = UnicodeSplit().unicode_split(sentence)
           else:
             _new_words = self.remove_stopword(_lines)
