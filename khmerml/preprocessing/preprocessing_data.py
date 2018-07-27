@@ -53,7 +53,7 @@ class Preprocessing(object):
             _preq_words[label][word] += 1
           else:
             _preq_words[label][word] = 1
-    print('label', _label_match)
+    # print('label', _label_match)
 
     _tfidf_mat = []
     _selected_words = []

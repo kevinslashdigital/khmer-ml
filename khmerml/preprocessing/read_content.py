@@ -31,8 +31,12 @@ class ReadContent(object):
                           encoding="utf-8", errors="surrogateescape")
           # Open file for reading
           _lines = _read_text.read()# Read content from file
-          _new_words = self.remove_stopword(_lines)
-          _new_words = self.stemming_words(_new_words)
+          _new_words = []
+          if self.kwargs['mode'] == 'unicode' :
+            words = UnicodeSplit().unicode_split(sentence)
+          else:
+            _new_words = self.remove_stopword(_lines)
+            _new_words = self.stemming_words(_new_words)
           _words_each_articles.append(_new_words)# Adding list to list
       _words_all_articles[folder.lower()] = _words_each_articles
       os.chdir(_save_path)  # Moving directory to the saved path
