@@ -20,3 +20,8 @@ config/env.json
 dataset/
 khmerml_dependencies*
 khmerml_dependencies.egg-info/
+pytest/
+examples/
+data/
+config/
+
