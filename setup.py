@@ -3,12 +3,11 @@
 # Author: "KhmerML" <khmerml@aicambodia.com>
 # 
 from __future__ import division, print_function
-from setuptools import setup
+from setuptools import setup, find_packages
 DOCLINES = (__doc__ or '').split("\n")
 import os
 import sys
 import subprocess
-import textwrap
 
 if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
     raise RuntimeError("Python version 2.7 or >= 3.4 required.")
@@ -40,9 +39,15 @@ Operating System :: Unix
 Operating System :: MacOS
 """
 
+DESCRIPTION = """khmerML: opensource module for machine learning"""
+
+LONG_DESCRIPTION = """khmerML is an opensource Python module for machine learning that consists of machine learning algorithms building from scratch focus on solving complex problems in Cambodia society. It has developed by slash research team and it will be able to contribute by anybody that willing to share their research.
+
+khmerML also is a way to encourage Cambodian tech engineers to start learning Machine Learning."""
+
 MAJOR               = 0
 MINOR               = 0
-MICRO               = 3
+MICRO               = 6
 ISRELEASED          = True
 VERSION             = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
@@ -132,11 +137,12 @@ if not release:
 default_setup = dict(
     name='khmerml',
     version= get_version_info()[0],
-    description = DOCLINES[0],
-    long_description = "\n".join(DOCLINES[2:]),
+    description = DESCRIPTION,
+    long_description = LONG_DESCRIPTION,
     provides=['khmerml'],
     install_requires=['numpy==1.14.5', 'nltk>=3.2.4'],
     requires=['numpy', 'nltk'],
+    packages=find_packages(),
     classifiers=[_f for _f in CLASSIFIERS.split('\n') if _f],
     platforms = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
     author='KhmerML',
