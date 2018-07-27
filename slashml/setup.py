@@ -23,6 +23,7 @@ def configuration(parent_package='', top_path=None):
 
     config.add_subpackage('algorithm')
     config.add_subpackage('algorithm/neural_network')
+    config.add_subpackage('algorithm/decision_tree')
 
 
     return config
