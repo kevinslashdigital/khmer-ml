@@ -15,8 +15,9 @@ def configuration(parent_package='', top_path=None):
   # submodules which do not have their own setup.py
   # we must manually add sub-submodules & tests
   # config.add_subpackage('examples')
+  config.add_subpackage('algorithms')
   config.add_subpackage('utils')
-  config.add_subpackage('naive_bayes')
+  # config.add_subpackage('naive_bayes')
   config.add_subpackage('preprocessing')
   return config
 
