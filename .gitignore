@@ -3,12 +3,20 @@ files.txt
 log_file.txt
 preprocessing/__pycache__ utils/__pycache__
 naive_bayes/.DS_Store
-slashml/build/
+khmerml/build/
 **/__pycache__/
 **/__pycache__
 **/__pycache__
-slashml/preprocessing/__pycache__ slashml/utils/__pycache__
-.DS_Store
-slashml/.DS_Store
-slashml/algorithm/.DS_Store slashml/naive_bayes/.DS_Store
-slashml/algorithm/neural_network/.DS_Store
+khmerml/preprocessing/__pycache__ khmerml/utils/__pycache__
+.vscode
+.pytest_cache
+*.pyc
+*.log
+config/env.json
+*.pickle
+*.csv
+*.model
+*.DS_Store
+dataset/
+khmerml_dependencies*
+khmerml_dependencies.egg-info/
