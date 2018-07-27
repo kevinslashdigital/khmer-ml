@@ -20,3 +20,4 @@ config/env.json
 dataset/
 khmerml_dependencies*
 khmerml_dependencies.egg-info/
+*.egg-info
