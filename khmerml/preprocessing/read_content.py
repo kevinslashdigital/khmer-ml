@@ -7,6 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem.lancaster import LancasterStemmer
 from khmerml.utils.file_util import FileUtil
+from khmerml.utils.unicodesplit import UnicodeSplit
 
 class ReadContent(object):
   """"
@@ -25,6 +26,7 @@ class ReadContent(object):
     _words_all_articles = dict()
     for folder in os.listdir(_directory_name):
       _words_each_articles = []   # List for storing all words in articles
+      if folder == '.DS_Store' : continue
       for files in os.listdir(_directory_name+'/'+folder):
         if files.endswith(".txt"):
           _read_text = open(_directory_name+'/'+folder+'/'+files, "rU",\
@@ -33,7 +35,7 @@ class ReadContent(object):
           _lines = _read_text.read()# Read content from file
           _new_words = []
           if self.kwargs['is_unicode'] and self.kwargs['is_unicode'] == 'true' :
-            words = UnicodeSplit().unicode_split(sentence)
+            _new_words = UnicodeSplit().unicode_split(_lines)
           else:
             _new_words = self.remove_stopword(_lines)
             _new_words = self.stemming_words(_new_words)

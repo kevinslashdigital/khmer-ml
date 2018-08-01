@@ -31,11 +31,11 @@ if __name__ == "__main__":
   args = parser.parse_args()
 
   config = {
-    'text_dir': 'data/dataset/chatbot',
+    'text_dir': 'data/dataset/chatbot_kh',
     'dataset': 'data/matrix',
     'bag_of_words': 'data/bag_of_words',
     'train_model': 'data/model/train.model',
-    'is_unicode': 'false'
+    'is_unicode': 'true'
   }
 
   ml = MachineLearning(**config)
@@ -50,7 +50,6 @@ if __name__ == "__main__":
     filename = "doc_freq_1.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
     dataset_sample = FileUtil.load_csv(dataset_path)
-
     ml = MachineLearning(**config)
     # split dataset -> train set, test set
     training_set, test_set = ml.split_dataset(dataset_sample, 1)

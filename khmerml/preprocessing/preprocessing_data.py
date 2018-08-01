@@ -8,6 +8,7 @@ from collections import Counter
 from khmerml.preprocessing.read_content import ReadContent
 from khmerml.utils.file_util import FileUtil
 from khmerml.utils.log import Log
+from khmerml.utils.unicodesplit import UnicodeSplit
 
 class Preprocessing(object):
   """"
@@ -23,6 +24,7 @@ class Preprocessing(object):
     _temp_all_words = _all_words
     _temp_all_words.append(feature_choice)
     _temp_all_words.append(threshold)
+
 
     if feature_choice == 'doc_freq':
       _tfidf = self.doc_frequency(_words_articles, _all_words, feature_choice, fq_type, threshold)
@@ -119,10 +121,13 @@ class Preprocessing(object):
     if feature_choice == 'doc_freq':
       dic_load = FileUtil.load_pickle((self.kwargs['bag_of_words'] if ('bag_of_words' in self.kwargs) else 'data/bag_of_words') + \
                                       '/'+feature_choice+'_'+str(threshold)+'.pickle')
-
-    document = content.remove_stopword(document)
-    article = content.stemming_words(document)
-    words = Counter(article)# Count the frequency of each term
+    _new_words = []
+    if self.kwargs['is_unicode'] and self.kwargs['is_unicode'] == 'true' :
+      _new_words = UnicodeSplit().unicode_split(document)
+    else:
+      _new_words = content.remove_stopword(document)
+      _new_words = content.stemming_words(document)
+    words = Counter(_new_words)# Count the frequency of each term
     row = []
     for word in dic_load:
       # each term or feature in article to be consider
