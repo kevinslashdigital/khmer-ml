@@ -46,6 +46,7 @@ if __name__ == "__main__":
   if args.mode == 'train' :
     # preposessing
     dataset_matrix = prepro.loading_data(config['text_dir'], 'doc_freq', 'all', 1)
+
     #load dataset from file (feature data)
     filename = "doc_freq_1.csv"
     dataset_path = FileUtil.dataset_path(config, filename)

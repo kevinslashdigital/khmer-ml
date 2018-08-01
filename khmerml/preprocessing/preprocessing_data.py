@@ -161,7 +161,7 @@ class Preprocessing(object):
     _selected_words = []
     for label, words in frequency_class.items():
       most_common = Counter(words).most_common(top)
-      print(most_common)
+      # print(most_common)
       for word in most_common:
         FileUtil.print('frequency[word]',word[0], word[1])
         _selected_words.append(word[0])
