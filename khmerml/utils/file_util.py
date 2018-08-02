@@ -203,7 +203,8 @@ class FileUtil(object):
   @staticmethod
   def print(*args):
     try:
-      print(args)
+      # print(args)
+      pass
     except UnicodeEncodeError:
       print('cannot print')
 

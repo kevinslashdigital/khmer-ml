@@ -29,11 +29,11 @@ class Tree(object):
     self.n_samples = features.shape[0]
     # End if all data are same class
     if len(np.unique(target)) == 1:
-        self.label = target[0]
-        return
+      self.label = target[0]
+      return
     # check for max depth
     if self.depth > self.max_depth:
-        return
+      return
     best_gain = 0.0
     best_feature = None
     best_threshold = None
@@ -55,9 +55,9 @@ class Tree(object):
 
       # Maximize information gain
       if info_gain > best_gain:
-          best_gain = info_gain
-          best_feature = feature_index
-          best_threshold = threshold
+        best_gain = info_gain
+        best_feature = feature_index
+        best_threshold = threshold
     # No best threshold found,
     # terminate tree building for the current branch
     if best_threshold is None:
@@ -108,7 +108,6 @@ class Tree(object):
           best_gain = info_gain
           best_feature = index
           best_threshold = threshold
-
     return best_gain, best_feature, best_threshold
 
   def _divide_tree(self, features, target, criterion):
@@ -211,6 +210,7 @@ class Tree(object):
     """
       Prediction of a new/unseen query instance.
     """
+    # print('self.feature',self.feature,X_test)
     # Node
     if self.feature is not None:
       if X_test[self.feature] <= self.threshold:
@@ -218,6 +218,7 @@ class Tree(object):
       else:
         return self.right._predict(X_test)
     else: # Leaf
+      # print(' self.label', self.label)
       return self.label
 
   def show_tree(self, depth, cond):

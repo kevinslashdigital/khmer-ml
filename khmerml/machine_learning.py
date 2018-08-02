@@ -88,7 +88,6 @@ class MachineLearning(object):
     # Sort dataset following descendant label
     # dataset[:, -1].argsort # Sort the last field (column)
     # dataset = dataset[dataset[:,1].argsort(kind='mergesort')]
-    print(dataset)
     sorted_dataset = dataset[dataset[:, -1].argsort()]
     # Get unique labels
     y_all = numpy.unique(sorted_dataset[:, -1])

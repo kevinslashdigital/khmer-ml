@@ -64,6 +64,7 @@ class ReadContent(object):
     _ignore_words = ['?', '$']
     _word = [_stemmer.stem(w.lower()) for w in text \
                             if w not in _ignore_words]# Stemming the words
+
     return _word
 
   def merge_list_content(self, list_of_list):

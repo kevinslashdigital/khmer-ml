@@ -29,11 +29,11 @@ class DecisionTree(Base, Tree):
     """
     try:
       head, tail = ntpath.split(self.kwargs['train_model'])
-      self.train_model = FileUtil.load_model(head+ '/decision_tree_' +tail)
+      model = FileUtil.load_model(head+ '/decision_tree_' +tail)
+      self.__dict__.update(model)
     except IOError as error:
       raise Exception(error)
-
-    return self.train_model
+    return self
 
   def save_model(self, model):
     """
@@ -41,7 +41,7 @@ class DecisionTree(Base, Tree):
     """
     try:
       head, tail = ntpath.split(self.kwargs['train_model'])
-      FileUtil.save_model(head+ '/decision_tree_' +tail, model)
+      FileUtil.save_model(head+ '/decision_tree_' +tail, model.__dict__)
     except IOError as error:
       print(error)
 
@@ -52,10 +52,11 @@ class DecisionTree(Base, Tree):
     y_train = dataset[:, -1]
     X_train = np.delete(dataset, -1, 1)
     # Start constructing tree
+    # self.build(X_train, y_train, self.criterion)
     self.build(X_train, y_train, self.criterion)
-    self.train_model = self.build(X_train, y_train, self.criterion)
-    self.save_model(self.train_model)
-    return self.train_model
+    self.save_model(self)
+    # self.show_tree(10,'he')
+    return self
 
 
   def predict(self, model, test_dataset):
