@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Author: "KhmerML" <khmerml@aicambodia.com>
-# 
+#
 from __future__ import division, print_function
 from setuptools import setup, find_packages
 DOCLINES = (__doc__ or '').split("\n")
@@ -47,7 +47,7 @@ khmerML also is a way to encourage Cambodian tech engineers to start learning Ma
 
 MAJOR               = 0
 MINOR               = 0
-MICRO               = 6
+MICRO               = 8
 ISRELEASED          = True
 VERSION             = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
