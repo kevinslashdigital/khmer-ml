@@ -31,16 +31,17 @@ if __name__ == "__main__":
   args = parser.parse_args()
 
   config = {
-    'text_dir': 'data/dataset/chatbot_kh',
+    'text_dir': 'data/dataset/chatbot',
     'dataset': 'data/matrix',
     'bag_of_words': 'data/bag_of_words',
     'train_model': 'data/model/train.model',
-    'is_unicode': 'true'
+    'is_unicode': 'false'
   }
 
   ml = MachineLearning(**config)
   # choose your algorithm
-  algo = ml.NiaveBayes()
+  # algo = ml.NiaveBayes()
+  algo = ml.DecisionTree(criterion='gini', prune='depth', max_depth=50, min_criterion=0.05)
   prepro = Preprocessing(**config)
   # -- mode
   if args.mode == 'train' :
@@ -51,12 +52,14 @@ if __name__ == "__main__":
     filename = "doc_freq_1.csv"
     dataset_path = FileUtil.dataset_path(config, filename)
     dataset_sample = FileUtil.load_csv(dataset_path)
-    ml = MachineLearning(**config)
+    # dataset_sample = prepro.normalize_dataset(dataset_sample)
+    # print(dataset_sample)
+
     # split dataset -> train set, test set
     training_set, test_set = ml.split_dataset(dataset_sample, 1)
     # train
     model = algo.train(training_set)
-
+    print('==== model ===',model)
     # make a prediction
     predictions = algo.predict(model, test_set)
     # Prediction accuracy
@@ -69,6 +72,7 @@ if __name__ == "__main__":
   elif args.mode == 'chat':
     print ("Start chatting with the bot !")
     model = algo.load_model()
+    print('==== model loaded ===',model)
     sessionid = 'Liza'
     while True:
       question 	= input('')

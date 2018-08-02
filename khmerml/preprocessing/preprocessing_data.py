@@ -121,12 +121,12 @@ class Preprocessing(object):
     if feature_choice == 'doc_freq':
       dic_load = FileUtil.load_pickle((self.kwargs['bag_of_words'] if ('bag_of_words' in self.kwargs) else 'data/bag_of_words') + \
                                       '/'+feature_choice+'_'+str(threshold)+'.pickle')
-    _new_words = []
+    _new_words = None
     if self.kwargs['is_unicode'] and self.kwargs['is_unicode'] == 'true' :
       _new_words = UnicodeSplit().unicode_split(document)
     else:
       _new_words = content.remove_stopword(document)
-      _new_words = content.stemming_words(document)
+      _new_words = content.stemming_words(_new_words)
     words = Counter(_new_words)# Count the frequency of each term
     row = []
     for word in dic_load:
@@ -139,7 +139,6 @@ class Preprocessing(object):
     _selected_words = []
     for word in frequency:
       if frequency[word] >= threshold:
-        FileUtil.print('frequency[word]',word, frequency[word])
         # Consider only terms which appear in
         # documents more than a threshold
         _selected_words.append(word)
@@ -151,7 +150,6 @@ class Preprocessing(object):
     for label,words in frequency_class.items():
       for word in frequency_class[label]:
         if words[word] >= threshold:
-          FileUtil.print('frequency[word]',word, words[word])
           _selected_words.append(word)
 
     Log('fq_by_class_selected_word.log').log(_selected_words)
@@ -160,10 +158,9 @@ class Preprocessing(object):
   def fq_by_top(self,frequency_class, top):
     _selected_words = []
     for label, words in frequency_class.items():
+      print('label',label)
       most_common = Counter(words).most_common(top)
-      # print(most_common)
       for word in most_common:
-        FileUtil.print('frequency[word]',word[0], word[1])
         _selected_words.append(word[0])
 
     Log('fq_by_class_top.log').log(_selected_words)
