@@ -92,7 +92,7 @@ class BayesBase(object):
       likelihood = reduce(lambda x, y: Decimal(x) * Decimal(y), _likelihoods)
 
       # Calculate posteriori
-      posteriori = priori * likelihood
+      posteriori = priori * Decimal(likelihood)
 
       # Check for the best posteriori
       if best_label is None or posteriori > best_posteriori:

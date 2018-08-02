@@ -47,7 +47,7 @@ khmerML also is a way to encourage Cambodian tech engineers to start learning Ma
 
 MAJOR               = 0
 MINOR               = 0
-MICRO               = 8
+MICRO               = 9
 ISRELEASED          = True
 VERSION             = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
