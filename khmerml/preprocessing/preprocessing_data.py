@@ -139,7 +139,6 @@ class Preprocessing(object):
     _selected_words = []
     for word in frequency:
       if frequency[word] >= threshold:
-        # FileUtil.print('frequency[word]',word, frequency[word])
         # Consider only terms which appear in
         # documents more than a threshold
         _selected_words.append(word)
@@ -151,7 +150,6 @@ class Preprocessing(object):
     for label,words in frequency_class.items():
       for word in frequency_class[label]:
         if words[word] >= threshold:
-          # FileUtil.print('frequency[word]',word, words[word])
           _selected_words.append(word)
 
     Log('fq_by_class_selected_word.log').log(_selected_words)
@@ -160,9 +158,9 @@ class Preprocessing(object):
   def fq_by_top(self,frequency_class, top):
     _selected_words = []
     for label, words in frequency_class.items():
+      print('label',label)
       most_common = Counter(words).most_common(top)
       for word in most_common:
-        # FileUtil.print('frequency[word]',word[0], word[1])
         _selected_words.append(word[0])
 
     Log('fq_by_class_top.log').log(_selected_words)

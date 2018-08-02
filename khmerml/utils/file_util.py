@@ -201,7 +201,7 @@ class FileUtil(object):
     return True
 
   @staticmethod
-  def print(*args):
+  def _print(*args):
     try:
       # print(args)
       pass

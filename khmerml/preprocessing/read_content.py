@@ -11,7 +11,7 @@ from khmerml.utils.unicodesplit import UnicodeSplit
 
 class ReadContent(object):
   """"
-      This is the main class
+    This is the main class
   """
 
   def __init__(self, **kwargs):

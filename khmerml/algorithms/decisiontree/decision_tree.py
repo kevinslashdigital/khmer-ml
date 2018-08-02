@@ -1,5 +1,3 @@
-
-import copy
 import ntpath
 import numpy as np
 
@@ -57,7 +55,6 @@ class DecisionTree(Base, Tree):
     self.save_model(self)
     # self.show_tree(10,'he')
     return self
-
 
   def predict(self, model, test_dataset):
     """
