@@ -18,6 +18,7 @@ Manually Install
 User Installation
 ----------------
 - python3 setup.py install --record files.txt
+- download [Khmer Segmentation](http://niptict.edu.kh/khmer-word-segmentation-tool/)
 - note setup.py that located in khmer-ml root folder
 
 
@@ -79,7 +80,7 @@ Documentation
 -------------
 * HTML documentation (stable release): https://khmerml.ai
 * HTML documentation (development version): https://khmerml.ai/dev/
-* FAQ: https://khmerml.ai/faq
+* [FAQ](https://khmerml.ai/faq)
 
 Communication
 -------------
@@ -87,5 +88,5 @@ Communication
 * Subscribe khmerml: https://khmerml.ai/subscribe
 * [Slack channel](https://cambodiaai.slack.com)
 * Stack Overflow
-* Website: https://khmerml.ai
+* [Website](https://khmerml.ai)
 
