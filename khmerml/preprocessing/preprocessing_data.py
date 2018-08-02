@@ -122,7 +122,8 @@ class Preprocessing(object):
       dic_load = FileUtil.load_pickle((self.kwargs['bag_of_words'] if ('bag_of_words' in self.kwargs) else 'data/bag_of_words') + \
                                       '/'+feature_choice+'_'+str(threshold)+'.pickle')
     _new_words = None
-    if self.kwargs['is_unicode'] and self.kwargs['is_unicode'] == 'true' :
+    is_unicode = self.kwargs.get('is_unicode', False)
+    if is_unicode  :
       _new_words = UnicodeSplit().unicode_split(document)
     else:
       _new_words = content.remove_stopword(document)

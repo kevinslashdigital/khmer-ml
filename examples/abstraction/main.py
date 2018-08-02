@@ -57,7 +57,7 @@ if __name__ == "__main__":
     'dataset': 'data/matrix',
     'bag_of_words': 'data/bag_of_words',
     'train_model': 'data/model/train.model',
-    'is_unicode': 'false'
+    'is_unicode': False
   }
 
   prepro = Preprocessing(**config)

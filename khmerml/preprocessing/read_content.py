@@ -34,7 +34,8 @@ class ReadContent(object):
           # Open file for reading
           _lines = _read_text.read()# Read content from file
           _new_words = []
-          if self.kwargs['is_unicode'] and self.kwargs['is_unicode'] == 'true' :
+          is_unicode = self.kwargs.get('is_unicode', False)
+          if is_unicode  :
             _new_words = UnicodeSplit().unicode_split(_lines)
           else:
             _new_words = self.remove_stopword(_lines)
