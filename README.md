@@ -65,9 +65,11 @@ Run from example
 
 Authors
 ================
-* YIN SENG (Kevin)
-* PECH RATHA
-* CHAB PISETH
+* [MARC GAMET](https://www.linkedin.com/in/marcgamet/)
+* [YIN SENG](https://web.facebook.com/yinkeangseng)
+* [PECH RATHA](https://web.facebook.com/sun.sea.1426)
+* [CHAB PISETH](https://web.facebook.com/chap.chanpiseth)
+* [PHAT SOVATHANA](https://www.linkedin.com/in/phat-sovathana-2aa64a148/)
 See also the list of [contributors](https://www.slash.co) who participated in this project.
 
 Help and Support (coming soon)
@@ -81,8 +83,9 @@ Documentation
 
 Communication
 -------------
+* [Subscribe cambodia AI community](https://cambodiaai.ai/subscribe)
 * Subscribe khmerml: https://khmerml.ai/subscribe
-* Slack channel
+* [Slack channel](https://cambodiaai.slack.com)
 * Stack Overflow
 * Website: https://khmerml.ai
 
