@@ -70,7 +70,7 @@ Authors
 * [YIN SENG](https://web.facebook.com/yinkeangseng)
 * [PECH RATHA](https://web.facebook.com/sun.sea.1426)
 * [CHAB PISETH](https://web.facebook.com/chap.chanpiseth)
-* [PHAT SOVATHANA](https://www.linkedin.com/in/phat-sovathana-2aa64a148/)
+* [PHAT SOVATHANA](https://web.facebook.com/phatsovathana)
 See also the list of [contributors](https://www.slash.co) who participated in this project.
 
 Help and Support (coming soon)
